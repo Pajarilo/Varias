@@ -1,0 +1,409 @@
+<html style="margin:0;padding:0;">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var s = document.createElement('style');
+  s.textContent = ':root{--bg:#1a1a1d;--card:#26262b;--text:#e8e5df;--muted:#9a978f;--accent:#c47046;--accent-soft:rgba(196,112,70,.14);--accent2:#7ba8b8;--accent2-soft:rgba(123,168,184,.14);--border:rgba(232,229,223,.12);--approved:#3d8b5a;--approved-soft:rgba(61,139,90,.18);--locked:#3a3a3f}.reveal{opacity:0;transform:translateY(20px);animation:fadeUp .6s ease forwards}.reveal:nth-child(2){animation-delay:.08s}.reveal:nth-child(3){animation-delay:.16s}.reveal:nth-child(4){animation-delay:.24s}.reveal:nth-child(5){animation-delay:.32s}.reveal:nth-child(6){animation-delay:.4s}.reveal:nth-child(7){animation-delay:.48s}.reveal:nth-child(8){animation-delay:.56s}@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}.course-card{transition:all .25s ease;cursor:pointer;user-select:none}.course-card:hover:not(.locked){transform:translateY(-3px)}.course-card.approved{background:var(--approved-soft);border-color:var(--approved)}.course-card.available{background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 18px rgba(196,112,70,.15)}.course-card.locked{background:var(--card);border-color:var(--border);opacity:.55;cursor:not-allowed}.course-card.locked:hover{transform:none}.tri-header{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}.stat-pill{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px}.btn-primary{background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer;transition:all .2s ease;font-size:14px}.btn-primary:hover{background:rgba(196,112,70,.25)}.btn-secondary{background:var(--card);color:var(--muted);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-weight:500;cursor:pointer;transition:all .2s ease;font-size:14px}.btn-secondary:hover{color:var(--text);border-color:var(--muted)}.tooltip{position:absolute;z-index:50;background:#1a1a1d;border:1px solid var(--border);border-radius:10px;padding:10px 14px;font-size:12px;color:var(--text);max-width:280px;box-shadow:0 8px 30px rgba(0,0,0,.4);pointer-events:none;opacity:0;transition:opacity .15s ease}.tooltip.show{opacity:1}.req-item{display:flex;align-items:center;gap:6px;margin:3px 0}.req-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}.legend-dot{width:12px;height:12px;border-radius:4px;flex-shrink:0}.correq-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:4px;background:var(--accent2-soft);color:var(--accent2);border:1px solid var(--accent2);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-left:6px;vertical-align:middle}';
+  document.head.appendChild(s);
+})();
+</script>
+<div style="background-color:transparent;box-sizing:border-box;">
+  <div style="color:var(--text);font-family:'Sora',sans-serif;background:var(--bg);min-height:100%;">
+    <div class="max-w-7xl mx-auto px-5 py-10">
+
+      <!-- HERO -->
+      <div class="reveal mb-8">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;">
+          <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+          </div>
+          <div>
+            <p style="font-family:monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Universidad Andrés Bello · Advance</p>
+            <h1 class="text-3xl font-bold" style="color:var(--text);letter-spacing:-0.02em;line-height:1.15">Malla Curricular · Ingeniería en Automatización y Robótica</h1>
+          </div>
+        </div>
+        <p style="color:var(--muted);max-width:720px;line-height:1.6" class="text-sm mt-2">Haz clic en los ramos para marcarlos como <strong style="color:var(--approved)">aprobados</strong>. El sistema calcula qué ramos se <strong style="color:var(--accent)">habilitan</strong> según sus <strong>prerrequisitos</strong>. Los <strong style="color:var(--accent2)">correquisitos</strong> se toman simultáneamente y no bloquean. Pasa el cursor sobre un ramo bloqueado para ver detalles.</p>
+      </div>
+
+      <!-- STATS + CONTROLS -->
+      <div class="reveal mb-8" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--approved)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Aprobados</div>
+              <div id="stat-approved" style="font-size:22px;font-weight:700;color:var(--approved);font-variant-numeric:tabular-nums">0</div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Disponibles</div>
+              <div id="stat-available" style="font-size:22px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums">0</div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--muted)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Créditos</div>
+              <div style="font-size:22px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums"><span id="stat-credits">0</span><span style="font-size:13px;color:var(--muted);font-weight:500"> / 330</span></div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent2)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Progreso</div>
+              <div id="stat-progress" style="font-size:22px;font-weight:700;color:var(--accent2);font-variant-numeric:tabular-nums">0%</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button class="btn-secondary" onclick="clearAll()">Limpiar</button>
+          <button class="btn-secondary" onclick="markTri(1)">Tri 1</button>
+          <button class="btn-secondary" onclick="markTri(2)">Tri 2</button>
+          <button class="btn-primary" onclick="markAll()">Marcar todo</button>
+        </div>
+      </div>
+
+      <!-- LEGEND -->
+      <div class="reveal mb-8" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 18px;">
+        <div style="display:flex;align-items:center;gap:8px;"><div class="legend-dot" style="background:var(--approved)"></div>Aprobado</div>
+        <div style="display:flex;align-items:center;gap:8px;"><div class="legend-dot" style="background:var(--accent)"></div>Disponible (prerrequisitos cumplidos)</div>
+        <div style="display:flex;align-items:center;gap:8px;"><div class="legend-dot" style="background:var(--locked)"></div>Bloqueado (prerrequisitos pendientes)</div>
+        <div style="display:flex;align-items:center;gap:8px;"><span class="correq-badge" style="margin-left:0">Correq</span>Debe tomarse simultáneamente</div>
+      </div>
+
+      <!-- TRI MESTERS GRID -->
+      <div id="grid-container" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;">
+      </div>
+
+      <!-- FOOTER -->
+      <div class="mt-14 pt-6" style="border-top:1px solid var(--border)">
+        <p class="text-center text-xs" style="color:var(--muted)">Catálogo: Primer Trimestre Advance 2023 · Periodo: Primer Trimestre 2026 · UNAB39212</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOOLTIP -->
+<div id="tooltip" class="tooltip"></div>
+
+<script>
+(function(){
+
+// ============== DATOS DE LA MALLA ==============
+// req: prerrequisitos (deben estar APROBADOS antes) -> BLOQUEAN si no se cumplen
+// correq: correquisitos (se toman JUNTOS en el mismo periodo) -> NO BLOQUEAN, solo informativos
+// Estructura: array de grupos. Cada grupo = OR (cualquiera vale). Grupos entre sí = AND.
+const cursos = {
+  // TRIMESTRE 1
+  "AAUT101": {nombre:"ELECTRÓNICA ANÁLOGA Y DIGITAL", cred:15, tri:1, req:[]},
+  "ATDF101": {nombre:"TÓPICOS DE INGENIERÍA", cred:8, tri:1, req:[]},
+  "ATDF102": {nombre:"INTRODUCCIÓN A LA PROGRAMACIÓN", cred:10, tri:1, req:[]},
+  "INGA119": {nombre:"INGLÉS I", cred:8, tri:1, req:[]},
+  // TRIMESTRE 2
+  "AAUT102": {nombre:"PLANOS Y NORMAS", cred:11, tri:2, req:[["AAUT101"]]},
+  "AAUT111": {nombre:"PLC AVANZADO", cred:10, tri:2, req:[["AAUT101"]]},
+  "AAUT121": {nombre:"INSTRUMENTACIÓN INDUSTRIAL", cred:10, tri:2, req:[], correq:[["AAUT102"]]},
+  "INGA129": {nombre:"INGLÉS II", cred:8, tri:2, req:[["INGA119","ING102","CCI104","ECC091","CCI001","ICT002"]]},
+  // TRIMESTRE 3
+  "AAUT211": {nombre:"REDES DE DATOS INDUSTRIALES", cred:11, tri:3, req:[["AAUT111"],["AAUT121"]]},
+  "ATDF103": {nombre:"BASE DE DATOS", cred:8, tri:3, req:[["ATDF102","AINS1001","AICI5101"]]},
+  "FMMA015": {nombre:"FUNDAMENTOS DE MATEMÁTICAS", cred:14, tri:3, req:[]},
+  "INGA239": {nombre:"INGLÉS III", cred:8, tri:3, req:[["INGA129","ING103","ECC092","CCI002","ICT104"]]},
+  // TRIMESTRE 4
+  "AAUT221": {nombre:"NEUMÁTICA E HIDRÁULICA", cred:9, tri:4, req:[["AAUT121"]]},
+  "CFSA3220": {nombre:"MECÁNICA", cred:10, tri:4, req:[["CFSA3180","FMF200","FMMA015","FMM050","FMMA190","AAUT101"]], correq:[["FMMA115"]]},
+  "FMMA115": {nombre:"CÁLCULO DIFERENCIAL E INTEGRAL", cred:14, tri:4, req:[["FMMA015","FMMA190","FMM050"]]},
+  "INGA249": {nombre:"INGLÉS IV", cred:8, tri:4, req:[["INGA239","ECC093","ECC094","CCI003","ICT206"]]},
+  // TRIMESTRE 5
+  "AAUT103": {nombre:"MICROCONTROLADORES", cred:9, tri:5, req:[["AAUT101"]]},
+  "AAUT122": {nombre:"REDES ELÉCTRICAS DE BAJA Y ALTA POTENCIA", cred:11, tri:5, req:[["AAUT101"]], correq:[["CFSA3440"]]},
+  "AAUT212": {nombre:"MONITOREO Y SUPERVISIÓN DE DATOS", cred:10, tri:5, req:[["ATDF103"],["AAUT111"],["AAUT211"]]},
+  "CFSA3440": {nombre:"ELECTRICIDAD Y MAGNETISMO", cred:10, tri:5, req:[["CFSA3220","FMF200"]]},
+  // TRIMESTRE 6
+  "AACD101": {nombre:"TALLER DE INNOVACIÓN Y EMPRENDIMIENTO I", cred:8, tri:6, req:[["ATDF101","AINS1001","AIND3101","AICI0001"]]},
+  "AAUT112": {nombre:"TEORÍA DE CONTROL", cred:10, tri:6, req:[["CFSA3220"],["FMMA115"]]},
+  "AAUT213": {nombre:"ROBÓTICA INDUSTRIAL", cred:10, tri:6, req:[["AAUT121"]], correq:[["AAUT112"]]},
+  "AAUT323": {nombre:"INTEGRADOR I: SEMINARIO DE INGENIERÍA", cred:13, tri:6, req:[["AAUT212"],["AAUT103"],["AAUT122"],["CFSA3440"]]},
+  // TRIMESTRE 7
+  "AACD102": {nombre:"TALLER DE INNOVACIÓN Y EMPRENDIMIENTO II", cred:8, tri:7, req:[["AACD101","AACD103","AINS3501","AIND3101","AICI0001"]]},
+  "AAUT214": {nombre:"TÉCNICAS AVANZADAS DE CONTROL", cred:12, tri:7, req:[["AAUT112"]]},
+  "AAUT301": {nombre:"PORTAFOLIO DE PROYECTOS", cred:16, tri:7, req:[["AAUT323"]]},
+  "FMSA315": {nombre:"TALLER DE MÉTODOS CUANTITATIVOS", cred:14, tri:7, req:[["FMMA115","FMM290","FMM050"]]},
+  // TRIMESTRE 8
+  "AAUT324": {nombre:"INTEGRADOR II: PROYECTO DE TÍTULO", cred:17, tri:8, req:[["AAUT301"]]},
+  "ATDF105": {nombre:"MINERÍA DE DATOS", cred:10, tri:8, req:[["FMSA315","AINS1202","AICI3202","FMS370"]]},
+  "ATDF106": {nombre:"GESTIÓN DE LA TRANSFORMACIÓN DIGITAL", cred:8, tri:8, req:[["ATDF103","AINS1201"]]},
+  "CEGARS14": {nombre:"RESPONSABILIDAD SOCIAL", cred:6, tri:8, req:[]}
+};
+
+const totalCursos = Object.keys(cursos).length;
+const totalCreditos = 330;
+var aprobados = new Set();
+
+// ============== LÓGICA ==============
+// SOLO los prerrequisitos bloquean. Correquisitos son informativos.
+function cumpleGrupo(grupo, aprobadosSet) {
+  for (var i = 0; i < grupo.length; i++) {
+    if (aprobadosSet.has(grupo[i])) return true;
+  }
+  return false;
+}
+
+function prerrequisitosCumplidos(codigo, aprobadosSet) {
+  var c = cursos[codigo];
+  if (!c) return false;
+  if (c.req) {
+    for (var i = 0; i < c.req.length; i++) {
+      if (!cumpleGrupo(c.req[i], aprobadosSet)) return false;
+    }
+  }
+  return true;
+}
+
+function getEstado(codigo) {
+  if (aprobados.has(codigo)) return "approved";
+  if (prerrequisitosCumplidos(codigo, aprobados)) return "available";
+  return "locked";
+}
+
+function getRequisitosInfo(codigo) {
+  var c = cursos[codigo];
+  var partes = [];
+  if (c.req && c.req.length > 0) {
+    for (var i = 0; i < c.req.length; i++) {
+      var grupo = c.req[i];
+      var items = [];
+      for (var j = 0; j < grupo.length; j++) {
+        items.push({cod: grupo[j], ok: aprobados.has(grupo[j])});
+      }
+      partes.push({tipo: "Prerrequisito", items: items, opcional: grupo.length > 1, bloqueante: true});
+    }
+  }
+  if (c.correq && c.correq.length > 0) {
+    for (var k = 0; k < c.correq.length; k++) {
+      var grupo2 = c.correq[k];
+      var items2 = [];
+      for (var l = 0; l < grupo2.length; l++) {
+        items2.push({cod: grupo2[l], ok: aprobados.has(grupo2[l])});
+      }
+      partes.push({tipo: "Correquisito", items: items2, opcional: grupo2.length > 1, bloqueante: false});
+    }
+  }
+  return partes;
+}
+
+// ============== RENDER ==============
+function render() {
+  var container = document.getElementById('grid-container');
+  container.innerHTML = '';
+
+  var trimestres = {};
+  for (var cod in cursos) {
+    var t = cursos[cod].tri;
+    if (!trimestres[t]) trimestres[t] = [];
+    trimestres[t].push(cod);
+  }
+
+  for (var tri = 1; tri <= 8; tri++) {
+    var triDiv = document.createElement('div');
+    triDiv.className = 'reveal';
+    triDiv.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;';
+
+    var header = document.createElement('div');
+    header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;';
+    var triNum = document.createElement('div');
+    triNum.className = 'tri-header';
+    triNum.style.cssText = 'font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;';
+    triNum.textContent = 'Trimestre ' + tri;
+    var triCred = document.createElement('div');
+    triCred.style.cssText = 'font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;';
+    var credTri = 0, aprobTri = 0;
+    for (var ci = 0; ci < trimestres[tri].length; ci++) {
+      credTri += cursos[trimestres[tri][ci]].cred;
+      if (aprobados.has(trimestres[tri][ci])) aprobTri += cursos[trimestres[tri][ci]].cred;
+    }
+    triCred.textContent = aprobTri + '/' + credTri + ' cr';
+    header.appendChild(triNum);
+    header.appendChild(triCred);
+    triDiv.appendChild(header);
+
+    var barBg = document.createElement('div');
+    barBg.style.cssText = 'height:4px;background:rgba(128,128,128,.15);border-radius:4px;overflow:hidden;margin-bottom:6px;';
+    var barFill = document.createElement('div');
+    var pctTri = credTri > 0 ? (aprobTri / credTri * 100) : 0;
+    barFill.style.cssText = 'height:100%;width:' + pctTri + '%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s ease;';
+    barBg.appendChild(barFill);
+    triDiv.appendChild(barBg);
+
+    for (var k = 0; k < trimestres[tri].length; k++) {
+      var codigo = trimestres[tri][k];
+      var curso = cursos[codigo];
+      var estado = getEstado(codigo);
+      var tieneCorreq = curso.correq && curso.correq.length > 0;
+
+      var card = document.createElement('div');
+      card.className = 'course-card ' + estado;
+      card.dataset.codigo = codigo;
+      card.style.cssText = 'border:1.5px solid var(--border);border-radius:12px;padding:12px;position:relative;';
+
+      var inner = document.createElement('div');
+      inner.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;gap:8px;';
+
+      var left = document.createElement('div');
+      left.style.cssText = 'flex:1;min-width:0;';
+
+      var codRow = document.createElement('div');
+      codRow.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:3px;';
+
+      var codEl = document.createElement('span');
+      codEl.style.cssText = 'font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:monospace;';
+      codEl.textContent = codigo;
+      codRow.appendChild(codEl);
+
+      if (tieneCorreq) {
+        var badge = document.createElement('span');
+        badge.className = 'correq-badge';
+        badge.textContent = 'Correq';
+        codRow.appendChild(badge);
+      }
+
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-size:13px;font-weight:600;color:var(--text);line-height:1.3;';
+      nameEl.textContent = curso.nombre;
+
+      left.appendChild(codRow);
+      left.appendChild(nameEl);
+
+      var right = document.createElement('div');
+      right.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;';
+
+      var credEl = document.createElement('div');
+      credEl.style.cssText = 'font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;';
+      credEl.textContent = curso.cred + ' cr';
+
+      var iconEl = document.createElement('div');
+      iconEl.style.cssText = 'width:20px;height:20px;display:flex;align-items:center;justify-content:center;';
+      if (estado === 'approved') {
+        iconEl.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--approved)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+      } else if (estado === 'available') {
+        iconEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/></svg>';
+      } else {
+        iconEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+      }
+
+      right.appendChild(credEl);
+      right.appendChild(iconEl);
+      inner.appendChild(left);
+      inner.appendChild(right);
+      card.appendChild(inner);
+
+      card.addEventListener('click', function(cod) {
+        return function() {
+          var est = getEstado(cod);
+          if (est === 'locked') return;
+          if (aprobados.has(cod)) {
+            aprobados.delete(cod);
+          } else {
+            aprobados.add(cod);
+          }
+          render();
+        };
+      }(codigo));
+
+      if (estado === 'locked' || tieneCorreq) {
+        card.addEventListener('mouseenter', function(cod, el) {
+          return function(e) { showTooltip(cod, el, e); };
+        }(codigo, card));
+        card.addEventListener('mousemove', moveTooltip);
+        card.addEventListener('mouseleave', hideTooltip);
+      }
+
+      triDiv.appendChild(card);
+    }
+
+    container.appendChild(triDiv);
+  }
+
+  updateStats();
+}
+
+function updateStats() {
+  var aprobCount = aprobados.size;
+  var creditos = 0;
+  aprobados.forEach(function(c) { creditos += cursos[c].cred; });
+
+  var disponibles = 0;
+  for (var cod in cursos) {
+    if (!aprobados.has(cod) && prerrequisitosCumplidos(cod, aprobados)) disponibles++;
+  }
+
+  var progreso = Math.round((aprobCount / totalCursos) * 100);
+
+  document.getElementById('stat-approved').textContent = aprobCount;
+  document.getElementById('stat-available').textContent = disponibles;
+  document.getElementById('stat-credits').textContent = creditos;
+  document.getElementById('stat-progress').textContent = progreso + '%';
+}
+
+// ============== TOOLTIP ==============
+var tooltip = document.getElementById('tooltip');
+
+function showTooltip(codigo, el, e) {
+  var partes = getRequisitosInfo(codigo);
+  var html = '<div style="font-weight:700;margin-bottom:8px;color:var(--text);font-size:13px;">' + cursos[codigo].nombre + '</div>';
+  if (partes.length === 0) {
+    html += '<div style="color:var(--muted);font-size:11px;">Sin prerrequisitos ni correquisitos</div>';
+  } else {
+    for (var i = 0; i < partes.length; i++) {
+      var p = partes[i];
+      var tipoColor = p.bloqueante ? 'var(--accent)' : 'var(--accent2)';
+      html += '<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:' + tipoColor + ';margin:8px 0 4px;font-weight:700;">' + p.tipo + (p.opcional ? ' (cualquiera vale)' : '') + '</div>';
+      if (!p.bloqueante) {
+        html += '<div style="font-size:10px;color:var(--muted);margin-bottom:4px;font-style:italic;">Se toma simultáneamente · no bloquea</div>';
+      }
+      for (var j = 0; j < p.items.length; j++) {
+        var it = p.items[j];
+        var color = it.ok ? 'var(--approved)' : (p.bloqueante ? '#dc5a5a' : 'var(--muted)');
+        var nombre = cursos[it.cod] ? cursos[it.cod].nombre : it.cod;
+        var check = it.ok ? '✓' : (p.bloqueante ? '✗' : '○');
+        html += '<div class="req-item"><span style="color:' + color + ';font-weight:700;font-size:12px;width:14px;text-align:center;">' + check + '</span><span style="font-family:monospace;font-size:11px;color:var(--muted)">' + it.cod + '</span><span style="font-size:11px;">' + nombre + '</span></div>';
+      }
+    }
+  }
+  tooltip.innerHTML = html;
+  tooltip.classList.add('show');
+  moveTooltip(e);
+}
+
+function moveTooltip(e) {
+  var x = e.clientX + 14;
+  var y = e.clientY + 14;
+  var rect = tooltip.getBoundingClientRect();
+  if (x + rect.width > window.innerWidth - 10) x = e.clientX - rect.width - 14;
+  if (y + rect.height > window.innerHeight - 10) y = e.clientY - rect.height - 14;
+  tooltip.style.left = x + 'px';
+  tooltip.style.top = y + 'px';
+}
+
+function hideTooltip() {
+  tooltip.classList.remove('show');
+}
+
+// ============== ACCIONES ==============
+window.clearAll = function() { aprobados.clear(); render(); };
+window.markAll = function() { for (var cod in cursos) aprobados.add(cod); render(); };
+window.markTri = function(n) {
+  for (var cod in cursos) {
+    if (cursos[cod].tri <= n) aprobados.add(cod);
+  }
+  render();
+};
+
+render();
+
+})();
+</script>
+</html>
