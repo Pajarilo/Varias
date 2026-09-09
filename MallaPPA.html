@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="es" style="margin:0;padding:0;">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+(function(){
+  var s = document.createElement('style');
+  s.textContent = ':root{--bg:#1a1a1d;--card:#26262b;--text:#e8e5df;--muted:#9a978f;--accent:#c47046;--accent-soft:rgba(196,112,70,.14);--accent2:#7ba8b8;--accent2-soft:rgba(123,168,184,.14);--border:rgba(232,229,223,.12);--approved:#3d8b5a;--approved-soft:rgba(61,139,90,.18);--locked:#3a3a3f;--external:#9c74b8;--external-soft:rgba(156,116,184,.14)}.reveal{opacity:0;transform:translateY(20px);animation:fadeUp .6s ease forwards}.reveal:nth-child(2){animation-delay:.08s}.reveal:nth-child(3){animation-delay:.16s}.reveal:nth-child(4){animation-delay:.24s}.reveal:nth-child(5){animation-delay:.32s}.reveal:nth-child(6){animation-delay:.4s}.reveal:nth-child(7){animation-delay:.48s}.reveal:nth-child(8){animation-delay:.56s}@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}.course-card{transition:all .25s ease;cursor:pointer;user-select:none}.course-card:hover:not(.locked){transform:translateY(-3px)}.course-card.approved{background:var(--approved-soft);border-color:var(--approved)}.course-card.available{background:var(--accent-soft);border-color:var(--accent);box-shadow:0 0 0 1px var(--accent),0 0 18px rgba(196,112,70,.15)}.course-card.locked{background:var(--card);border-color:var(--border);opacity:.55;cursor:not-allowed}.course-card.locked:hover{transform:none}.tri-header{background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}.stat-pill{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 18px}.btn-primary{background:var(--accent-soft);color:var(--text);border:1px solid var(--accent);border-radius:10px;padding:10px 18px;font-weight:600;cursor:pointer;transition:all .2s ease;font-size:14px}.btn-primary:hover{background:rgba(196,112,70,.25)}.btn-secondary{background:var(--card);color:var(--muted);border:1px solid var(--border);border-radius:10px;padding:10px 18px;font-weight:500;cursor:pointer;transition:all .2s ease;font-size:14px}.btn-secondary:hover{color:var(--text);border-color:var(--muted)}.tooltip{position:absolute;z-index:50;background:#1a1a1d;border:1px solid var(--border);border-radius:10px;padding:12px 14px;font-size:12px;color:var(--text);max-width:340px;box-shadow:0 8px 30px rgba(0,0,0,.4);pointer-events:none;opacity:0;transition:opacity .15s ease;line-height:1.45}.tooltip.show{opacity:1}.req-item{display:flex;align-items:center;gap:6px;margin:3px 0}.correq-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:4px;background:var(--accent2-soft);color:var(--accent2);border:1px solid var(--accent2);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-left:6px;vertical-align:middle}.external-badge{display:inline-block;font-size:9px;padding:1px 6px;border-radius:4px;background:var(--external-soft);color:var(--external);border:1px solid var(--external);text-transform:uppercase;letter-spacing:.06em;font-weight:700;margin-left:6px;vertical-align:middle}.note-input{width:42px;text-align:center;background:#2c2c32;border:1px solid var(--border);border-radius:6px;color:var(--text);font-size:13px;font-weight:600;padding:2px 4px;outline:none;transition:border .15s ease}.note-input:focus{border-color:var(--accent)}.section-sep{border-top:1px dashed var(--border);margin:8px 0;padding-top:8px}.group-hint{font-size:10px;font-style:italic;margin:2px 0 4px;color:var(--muted)}.btn-sm{padding:6px 10px;font-size:12px;border-radius:8px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--accent);color:var(--text);padding:10px 18px;border-radius:10px;box-shadow:0 4px 20px rgba(0,0,0,.4);z-index:999;opacity:0;transition:opacity .2s ease}.toast.show{opacity:1}';
+  document.head.appendChild(s);
+})();
+</script>
+<div style="background-color:transparent;box-sizing:border-box;">
+  <div style="color:var(--text);font-family:'Sora',sans-serif;background:var(--bg);min-height:100%;">
+    <div class="max-w-7xl mx-auto px-5 py-10">
+      <!-- HERO -->
+      <div class="reveal mb-8">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:14px;flex-wrap:wrap;justify-content:space-between;">
+          <div style="display:flex;align-items:center;gap:14px;">
+            <div style="width:48px;height:48px;border-radius:12px;background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent);flex-shrink:0;">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+            </div>
+            <div>
+              <p style="font-family:monospace;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted)">Universidad Andrés Bello · Advance</p>
+              <h1 class="text-3xl font-bold" style="color:var(--text);letter-spacing:-0.02em;line-height:1.15">Malla Curricular · Ingeniería en Automatización y Robótica</h1>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn-secondary btn-sm" onclick="exportarAvance()">📤 Respaldar</button>
+            <button class="btn-secondary btn-sm" onclick="importarAvance()">📥 Restaurar</button>
+          </div>
+        </div>
+        <p style="color:var(--muted);max-width:820px;line-height:1.6" class="text-sm mt-2">
+          Haz clic en los ramos para marcarlos como aprobados. Ingresa la nota en cada uno para calcular tu <strong>PPA</strong>. Tu avance se <strong>guarda automáticamente</strong>.
+          Los <strong style="color:var(--accent)">prerrequisitos</strong> bloquean la inscripción; los <strong style="color:var(--accent2)">correquisitos</strong> se toman simultáneamente.
+          Los <strong style="color:var(--external)">requisitos externos</strong> son asignaturas equivalentes de otras carreras.
+        </p>
+      </div>
+      <!-- STATS + CONTROLS -->
+      <div class="reveal mb-8" style="display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;">
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--approved)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Aprobados</div>
+              <div id="stat-approved" style="font-size:22px;font-weight:700;color:var(--approved);font-variant-numeric:tabular-nums">0</div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Disponibles</div>
+              <div id="stat-available" style="font-size:22px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums">0</div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--muted)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Créditos</div>
+              <div style="font-size:22px;font-weight:700;color:var(--text);font-variant-numeric:tabular-nums"><span id="stat-credits">0</span><span style="font-size:13px;color:var(--muted);font-weight:500"> / 330</span></div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent2)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em">Progreso</div>
+              <div id="stat-progress" style="font-size:22px;font-weight:700;color:var(--accent2);font-variant-numeric:tabular-nums">0%</div>
+            </div>
+          </div>
+          <div class="stat-pill" style="display:flex;align-items:center;gap:10px;border-color:var(--accent);background:var(--accent-soft);">
+            <div style="width:10px;height:10px;border-radius:50%;background:var(--accent)"></div>
+            <div>
+              <div style="font-size:10px;color:var(--accent);text-transform:uppercase;letter-spacing:.08em;font-weight:700">PPA</div>
+              <div id="stat-ppa" style="font-size:22px;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums">0.00</div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;">
+          <button class="btn-secondary" onclick="clearAll()">Limpiar todo</button>
+          <button class="btn-secondary" onclick="markTri(1)">Tri 1</button>
+          <button class="btn-secondary" onclick="markTri(2)">Tri 2</button>
+          <button class="btn-secondary" onclick="markTri(3)">Tri 3</button>
+          <button class="btn-primary" onclick="markAll()">Marcar todo</button>
+        </div>
+      </div>
+      <!-- LEGEND -->
+      <div class="reveal mb-8" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;font-size:13px;color:var(--muted);background:var(--card);border:1px solid var(--border);border-radius:12px;padding:12px 18px;">
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:12px;height:12px;border-radius:4px;background:var(--approved)"></div>Aprobado</div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:12px;height:12px;border-radius:4px;background:var(--accent)"></div>Disponible</div>
+        <div style="display:flex;align-items:center;gap:8px;"><div style="width:12px;height:12px;border-radius:4px;background:var(--locked)"></div>Bloqueado</div>
+        <div style="display:flex;align-items:center;gap:8px;"><span class="correq-badge" style="margin-left:0">Correq</span>Correquisito</div>
+        <div style="display:flex;align-items:center;gap:8px;"><span class="external-badge" style="margin-left:0">Externo</span>Asignatura de otra carrera</div>
+      </div>
+      <!-- TRIMESTRES GRID -->
+      <div id="grid-container" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:16px;">
+      </div>
+      <!-- FOOTER -->
+      <div class="mt-14 pt-6" style="border-top:1px solid var(--border)">
+        <p class="text-center text-xs" style="color:var(--muted)">Catálogo: Primer Trimestre Advance 2023 · UNAB39212 · PPA = Promedio Ponderado Acumulado</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- TOOLTIP -->
+<div id="tooltip" class="tooltip"></div>
+<div id="toast" class="toast"></div>
+<script>
+(function(){
+"use strict";
+const STORAGE_KEY = 'malla-unab39212-avance';
+
+// ============== DATOS DE LA MALLA ==============
+const cursos = {
+  "AAUT101": {nombre:"ELECTRÓNICA ANÁLOGA Y DIGITAL", cred:15, tri:1, req:[]},
+  "ATDF101": {nombre:"TÓPICOS DE INGENIERÍA", cred:8, tri:1, req:[]},
+  "ATDF102": {nombre:"INTRODUCCIÓN A LA PROGRAMACIÓN", cred:10, tri:1, req:[]},
+  "INGA119": {nombre:"INGLÉS I", cred:8, tri:1, req:[]},
+  "AAUT102": {nombre:"PLANOS Y NORMAS", cred:11, tri:2, req:[["AAUT101"]]},
+  "AAUT111": {nombre:"PLC AVANZADO", cred:10, tri:2, req:[["AAUT101"]]},
+  "AAUT121": {nombre:"INSTRUMENTACIÓN INDUSTRIAL", cred:10, tri:2, req:[], correq:[["AAUT102"]]},
+  "INGA129": {nombre:"INGLÉS II", cred:8, tri:2, req:[["INGA119","ING102","CCI104","ECC091","CCI001","ICT002"]]},
+  "AAUT211": {nombre:"REDES DE DATOS INDUSTRIALES", cred:11, tri:3, req:[["AAUT111"],["AAUT121"]]},
+  "ATDF103": {nombre:"BASE DE DATOS", cred:8, tri:3, req:[["ATDF102","AINS1001","AICI5101"]]},
+  "FMMA015": {nombre:"FUNDAMENTOS DE MATEMÁTICAS", cred:14, tri:3, req:[]},
+  "INGA239": {nombre:"INGLÉS III", cred:8, tri:3, req:[["INGA129","ING103","ECC092","CCI002","ICT104"]]},
+  "AAUT221": {nombre:"NEUMÁTICA E HIDRÁULICA", cred:9, tri:4, req:[["AAUT121"]]},
+  "CFSA3220": {nombre:"MECÁNICA", cred:10, tri:4, req:[["CFSA3180","FMF200","FMMA015","FMM050","FMMA190","AAUT101"]], correq:[["FMMA115"]]},
+  "FMMA115": {nombre:"CÁLCULO DIFERENCIAL E INTEGRAL", cred:14, tri:4, req:[["FMMA015","FMMA190","FMM050"]]},
+  "INGA249": {nombre:"INGLÉS IV", cred:8, tri:4, req:[["INGA239","ECC093","ECC094","CCI003","ICT206"]]},
+  "AAUT103": {nombre:"MICROCONTROLADORES", cred:9, tri:5, req:[["AAUT101"]]},
+  "AAUT122": {nombre:"REDES ELÉCTRICAS DE BAJA Y ALTA POTENCIA", cred:11, tri:5, req:[["AAUT101"]], correq:[["CFSA3440"]]},
+  "AAUT212": {nombre:"MONITOREO Y SUPERVISIÓN DE DATOS", cred:10, tri:5, req:[["ATDF103"],["AAUT111"],["AAUT211"]]},
+  "CFSA3440": {nombre:"ELECTRICIDAD Y MAGNETISMO", cred:10, tri:5, req:[["CFSA3220","FMF200"]]},
+  "AACD101": {nombre:"TALLER DE INNOVACIÓN Y EMPRENDIMIENTO I", cred:8, tri:6, req:[["ATDF101","AINS1001","AIND3101","AICI0001"]]},
+  "AAUT112": {nombre:"TEORÍA DE CONTROL", cred:10, tri:6, req:[["CFSA3220"],["FMMA115"]]},
+  "AAUT213": {nombre:"ROBÓTICA INDUSTRIAL", cred:10, tri:6, req:[["AAUT121"]], correq:[["AAUT112"]]},
+  "AAUT323": {nombre:"INTEGRADOR I: SEMINARIO DE INGENIERÍA", cred:13, tri:6, req:[["AAUT212"],["AAUT103"],["AAUT122"],["CFSA3440"]]},
+  "AACD102": {nombre:"TALLER DE INNOVACIÓN Y EMPRENDIMIENTO II", cred:8, tri:7, req:[["AACD101","AACD103","AINS3501","AIND3101","AICI0001"]]},
+  "AAUT214": {nombre:"TÉCNICAS AVANZADAS DE CONTROL", cred:12, tri:7, req:[["AAUT112"]]},
+  "AAUT301": {nombre:"PORTAFOLIO DE PROYECTOS", cred:16, tri:7, req:[["AAUT323"]]},
+  "FMSA315": {nombre:"TALLER DE MÉTODOS CUANTITATIVOS", cred:14, tri:7, req:[["FMMA115","FMM290","FMM050"]]},
+  "AAUT324": {nombre:"INTEGRADOR II: PROYECTO DE TÍTULO", cred:17, tri:8, req:[["AAUT301"]]},
+  "ATDF105": {nombre:"MINERÍA DE DATOS", cred:10, tri:8, req:[["FMSA315","AINS1202","AICI3202","FMS370"]]},
+  "ATDF106": {nombre:"GESTIÓN DE LA TRANSFORMACIÓN DIGITAL", cred:8, tri:8, req:[["ATDF103","AINS1201"]]},
+  "CEGARS14": {nombre:"RESPONSABILIDAD SOCIAL", cred:6, tri:8, req:[]}
+};
+const totalCursos = Object.keys(cursos).length;
+const totalCreditos = 330;
+var aprobados = new Set();
+var notas = {};
+var dependencias = {};
+
+// ============== PERSISTENCIA ==============
+function guardarAvance(){
+  try {
+    const datos = JSON.stringify({
+      aprobados: [...aprobados],
+      notas: notas
+    });
+    localStorage.setItem(STORAGE_KEY, datos);
+  } catch(e) {
+    console.warn('No se pudo guardar:', e);
+  }
+}
+
+function cargarAvance(){
+  try {
+    const guardado = localStorage.getItem(STORAGE_KEY);
+    if(guardado){
+      const datos = JSON.parse(guardado);
+      aprobados.clear();
+      datos.aprobados.forEach(c => aprobados.add(c));
+      notas = datos.notas || {};
+      return true;
+    }
+  } catch(e) {
+    console.warn('No se pudo cargar:', e);
+  }
+  return false;
+}
+
+function mostrarToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+window.exportarAvance = function(){
+  const datos = btoa(JSON.stringify({aprobados:[...aprobados], notas:notas}));
+  navigator.clipboard.writeText(datos).then(()=>{
+    mostrarToast('✅ Código de respaldo copiado al portapapeles');
+  }).catch(()=>{
+    const ta = document.createElement('textarea');
+    ta.value = datos;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    mostrarToast('✅ Código de respaldo copiado');
+  });
+};
+
+window.importarAvance = function(){
+  const codigo = prompt('Pega aquí tu código de respaldo:');
+  if(!codigo) return;
+  try {
+    const datos = JSON.parse(atob(codigo));
+    aprobados.clear();
+    datos.aprobados.forEach(c => aprobados.add(c));
+    notas = datos.notas || {};
+    guardarAvance();
+    actualizarVista();
+    mostrarToast('✅ Avance restaurado correctamente');
+  } catch(e) {
+    mostrarToast('❌ Código inválido');
+  }
+};
+
+// ============== MAPA DE DEPENDENCIAS ==============
+function construirMapaDependencias() {
+  dependencias = {};
+  for (var cod in cursos) dependencias[cod] = new Set();
+  for (var cod in cursos) {
+    var c = cursos[cod];
+    if (c.req) {
+      c.req.forEach(function(grupo) {
+        grupo.forEach(function(requisito) {
+          if (cursos[requisito]) dependencias[requisito].add(cod);
+        });
+      });
+    }
+  }
+}
+
+// ============== DESMARCAR EN CASCADA ==============
+function desmarcarDependientes(codigoDesmarcado) {
+  var cola = [codigoDesmarcado];
+  while (cola.length > 0) {
+    var actual = cola.shift();
+    if (aprobados.has(actual)) {
+      aprobados.delete(actual);
+      delete notas[actual];
+    }
+    if (dependencias[actual]) {
+      dependencias[actual].forEach(function(dep) {
+        if (aprobados.has(dep)) cola.push(dep);
+      });
+    }
+  }
+  guardarAvance();
+}
+
+// ============== LÓGICA DE REQUISITOS ==============
+function cumpleGrupo(grupo, aprobadosSet) {
+  return grupo.some(function(cod) { return aprobadosSet.has(cod); });
+}
+function prerrequisitosCumplidos(codigo, aprobadosSet) {
+  var c = cursos[codigo];
+  if (!c || !c.req) return true;
+  return c.req.every(function(grupo) { return cumpleGrupo(grupo, aprobadosSet); });
+}
+function getEstado(codigo) {
+  if (aprobados.has(codigo)) return "approved";
+  if (prerrequisitosCumplidos(codigo, aprobados)) return "available";
+  return "locked";
+}
+function esExterno(cod) { return !cursos.hasOwnProperty(cod); }
+
+// ============== SEPARAR INTERNOS / EXTERNOS / CORREQ ==============
+function getRequisitosInfo(codigo) {
+  var c = cursos[codigo];
+  var internos = [], externos = [], correquisitos = [];
+  if (c.req && c.req.length > 0) {
+    c.req.forEach(function(grupo) {
+      var items = grupo.map(function(cod) {
+        return {
+          cod: cod,
+          ok: aprobados.has(cod),
+          externo: esExterno(cod),
+          nombre: cursos[cod] ? cursos[cod].nombre : "Asignatura equivalente"
+        };
+      });
+      var soloExternos = items.every(function(it){ return it.externo; });
+      var soloInternos = items.every(function(it){ return !it.externo; });
+      if (soloExternos) {
+        externos.push({items:items, opcional: grupo.length>1});
+      } else if (soloInternos) {
+        internos.push({items:items, opcional: grupo.length>1});
+      } else {
+        var intItems = items.filter(i=>!i.externo);
+        var extItems = items.filter(i=>i.externo);
+        if (intItems.length) internos.push({items:intItems, opcional: intItems.length>1});
+        if (extItems.length) externos.push({items:extItems, opcional: extItems.length>1});
+      }
+    });
+  }
+  if (c.correq && c.correq.length > 0) {
+    c.correq.forEach(function(grupo) {
+      correquisitos.push({
+        items: grupo.map(function(cod) {
+          return {cod:cod, ok:aprobados.has(cod), externo:esExterno(cod), nombre:cursos[cod]?cursos[cod].nombre:"Asignatura equivalente"};
+        }),
+        opcional: grupo.length>1
+      });
+    });
+  }
+  return {internos:internos, externos:externos, correquisitos:correquisitos};
+}
+
+// ============== PPA ==============
+function calcularPPA() {
+  var sumaPonderada = 0, sumaCreditos = 0;
+  aprobados.forEach(function(cod) {
+    var nota = parseFloat(notas[cod]);
+    if (!isNaN(nota) && nota > 0) {
+      sumaPonderada += nota * cursos[cod].cred;
+      sumaCreditos += cursos[cod].cred;
+    }
+  });
+  return sumaCreditos > 0 ? (sumaPonderada / sumaCreditos).toFixed(2) : "0.00";
+}
+
+// ============== CREAR ESTRUCTURA UNA SOLA VEZ ==============
+function crearEstructura() {
+  var container = document.getElementById('grid-container');
+  var trimestres = {};
+  for (var cod in cursos) {
+    var t = cursos[cod].tri;
+    if (!trimestres[t]) trimestres[t] = [];
+    trimestres[t].push(cod);
+  }
+  for (var tri = 1; tri <= 8; tri++) {
+    if (!trimestres[tri]) continue;
+    var triDiv = document.createElement('div');
+    triDiv.className = 'reveal';
+    triDiv.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;';
+    triDiv.dataset.trimestre = tri;
+    var header = document.createElement('div');
+    header.style.cssText = 'display:flex;align-items:center;justify-content:space-between;margin-bottom:4px;';
+    var triNum = document.createElement('div');
+    triNum.className = 'tri-header';
+    triNum.style.cssText = 'font-size:13px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;';
+    triNum.textContent = 'Trimestre ' + tri;
+    var triCred = document.createElement('div');
+    triCred.className = 'tri-credits';
+    triCred.style.cssText = 'font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;';
+    header.appendChild(triNum); header.appendChild(triCred);
+    triDiv.appendChild(header);
+    var barBg = document.createElement('div');
+    barBg.style.cssText = 'height:4px;background:rgba(128,128,128,.15);border-radius:4px;overflow:hidden;margin-bottom:6px;';
+    var barFill = document.createElement('div');
+    barFill.className = 'tri-progress-bar';
+    barFill.style.cssText = 'height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));transition:width .3s ease;';
+    barBg.appendChild(barFill);
+    triDiv.appendChild(barBg);
+    trimestres[tri].forEach(function(codigo){
+      var curso = cursos[codigo];
+      var tieneCorreq = curso.correq && curso.correq.length>0;
+      var card = document.createElement('div');
+      card.className = 'course-card';
+      card.dataset.codigo = codigo;
+      card.style.cssText = 'border:1.5px solid var(--border);border-radius:12px;padding:12px;position:relative;transition:all .25s ease;';
+      var inner = document.createElement('div');
+      inner.style.cssText = 'display:flex;align-items:flex-start;justify-content:space-between;gap:8px;';
+      var left = document.createElement('div');
+      left.style.cssText = 'flex:1;min-width:0;';
+      var codRow = document.createElement('div');
+      codRow.style.cssText = 'display:flex;align-items:center;flex-wrap:wrap;gap:4px;margin-bottom:3px;';
+      var codEl = document.createElement('span');
+      codEl.style.cssText = 'font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-family:monospace;';
+      codEl.textContent = codigo;
+      codRow.appendChild(codEl);
+      if (tieneCorreq) {
+        var badge=document.createElement('span');
+        badge.className='correq-badge';badge.textContent='Correq';
+        codRow.appendChild(badge);
+      }
+      var nameEl = document.createElement('div');
+      nameEl.style.cssText = 'font-size:13px;font-weight:600;color:var(--text);line-height:1.3;';
+      nameEl.textContent = curso.nombre;
+      left.appendChild(codRow); left.appendChild(nameEl);
+      var right = document.createElement('div');
+      right.style.cssText = 'display:flex;flex-direction:column;align-items:flex-end;gap:4px;flex-shrink:0;';
+      var credEl = document.createElement('div');
+      credEl.style.cssText = 'font-size:11px;font-weight:700;color:var(--muted);font-variant-numeric:tabular-nums;';
+      credEl.textContent = curso.cred + ' cr';
+      right.appendChild(credEl);
+      var noteWrap=document.createElement('div');
+      noteWrap.className = 'note-wrap';
+      noteWrap.style.cssText='display:none;align-items:center;gap:4px;';
+      var noteInput=document.createElement('input');
+      noteInput.type='number'; noteInput.className='note-input';
+      noteInput.min='1.0'; noteInput.max='7.0'; noteInput.step='0.1';
+      noteInput.placeholder='nota';
+      noteInput.addEventListener('input',(function(c){return function(){
+        notas[c]=this.value;
+        guardarAvance();
+        updateStats();
+      };})(codigo));
+      noteWrap.appendChild(noteInput);
+      right.appendChild(noteWrap);
+      var iconEl=document.createElement('div');
+      iconEl.className='card-icon';
+      iconEl.style.cssText='width:20px;height:20px;display:flex;align-items:center;justify-content:center;';
+      right.appendChild(iconEl);
+      inner.appendChild(left); inner.appendChild(right);
+      card.appendChild(inner);
+      // Evento clic
+      card.addEventListener('click',function(cod){
+        return function(e){
+          if(e.target.tagName==='INPUT')return;
+          var est=getEstado(cod);
+          if(est==='locked')return;
+          if(est==='approved') desmarcarDependientes(cod);
+          else { aprobados.add(cod); guardarAvance(); }
+          actualizarVista();
+        };
+      }(codigo));
+      // Tooltip
+      if(tieneCorreq){
+        card.addEventListener('mouseenter',function(c,e){return function(ev){showTooltip(c,e,ev);};}(codigo,card));
+        card.addEventListener('mousemove',moveTooltip);
+        card.addEventListener('mouseleave',hideTooltip);
+      }
+      triDiv.appendChild(card);
+    });
+    container.appendChild(triDiv);
+  }
+}
+
+// ============== SOLO ACTUALIZAR ESTADOS ==============
+function actualizarVista() {
+  document.querySelectorAll('.course-card').forEach(function(card){
+    var cod = card.dataset.codigo;
+    var estado = getEstado(cod);
+    var notaWrap = card.querySelector('.note-wrap');
+    var iconEl = card.querySelector('.card-icon');
+    card.classList.remove('approved','available','locked');
+    card.classList.add(estado);
+    if (estado === 'approved') {
+      notaWrap.style.display = 'flex';
+      notaWrap.querySelector('input').value = notas[cod] || '';
+      iconEl.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--approved)" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>';
+      if (!card._hasTip) {
+        card._hasTip = true;
+        card.addEventListener('mouseenter',function(c,e){return function(ev){showTooltip(c,e,ev);};}(cod,card));
+        card.addEventListener('mousemove',moveTooltip);
+        card.addEventListener('mouseleave',hideTooltip);
+      }
+    } else {
+      notaWrap.style.display = 'none';
+      if (estado === 'available') {
+        iconEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2.5"><circle cx="12" cy="12" r="9"/></svg>';
+      } else {
+        iconEl.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--muted)" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>';
+      }
+    }
+  });
+  // Actualizar créditos por trimestre
+  document.querySelectorAll('[data-trimestre]').forEach(function(triDiv){
+    var tri = parseInt(triDiv.dataset.trimestre);
+    var cods = Object.keys(cursos).filter(c => cursos[c].tri === tri);
+    var credTri = cods.reduce((s,c)=>s+cursos[c].cred,0);
+    var aprobTri = cods.filter(c=>aprobados.has(c)).reduce((s,c)=>s+cursos[c].cred,0);
+    var credEl = triDiv.querySelector('.tri-credits');
+    var barEl = triDiv.querySelector('.tri-progress-bar');
+    credEl.textContent = aprobTri + '/' + credTri + ' cr';
+    barEl.style.width = (credTri>0 ? (aprobTri/credTri)*100 : 0) + '%';
+  });
+  updateStats();
+}
+
+function updateStats(){
+  var aprobCount=aprobados.size;
+  var creditos=0; aprobados.forEach(function(c){creditos+=cursos[c].cred;});
+  var disponibles=0; for(var c in cursos){if(!aprobados.has(c)&&prerrequisitosCumplidos(c,aprobados))disponibles++;}
+  var progreso=Math.round((aprobCount/totalCursos)*100);
+  document.getElementById('stat-approved').textContent=aprobCount;
+  document.getElementById('stat-available').textContent=disponibles;
+  document.getElementById('stat-credits').textContent=creditos;
+  document.getElementById('stat-progress').textContent=progreso+'%';
+  document.getElementById('stat-ppa').textContent=calcularPPA();
+}
+
+// ============== TOOLTIP ==============
+var tooltip=document.getElementById('tooltip');
+function showTooltip(codigo,el,e){
+  var info=getRequisitosInfo(codigo);
+  var c=cursos[codigo];
+  var html='<div style="font-weight:700;margin-bottom:8px;color:var(--text);font-size:13px;">'+c.nombre+' <span style="color:var(--muted);font-weight:400;font-size:11px;">'+codigo+' · '+c.cred+' cr</span></div>';
+  if(info.internos.length===0 && info.externos.length===0 && info.correquisitos.length===0){
+    html+='<div style="color:var(--muted);font-size:11px;">Sin prerrequisitos ni correquisitos</div>';
+  }else{
+    if(info.internos.length>0){
+      html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);margin:4px 0;font-weight:700;">Prerrequisitos</div>';
+      info.internos.forEach(function(g){
+        if(g.opcional) html+='<div class="group-hint">Cualquiera de los siguientes:</div>';
+        g.items.forEach(function(it){
+          var color=it.ok?'var(--approved)':'#dc5a5a';
+          var check=it.ok?'✓':'✗';
+          html+='<div class="req-item"><span style="color:'+color+';font-weight:700;font-size:12px;width:14px;text-align:center;">'+check+'</span><span style="font-family:monospace;font-size:11px;color:var(--muted)">'+it.cod+'</span><span style="font-size:11px;">'+it.nombre+'</span></div>';
+        });
+      });
+    }
+    if(info.externos.length>0){
+      html+='<div class="section-sep"></div>';
+      html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--external);margin:4px 0;font-weight:700;">Equivalencias externas</div>';
+      html+='<div style="font-size:10px;color:var(--muted);font-style:italic;margin-bottom:4px;">Asignaturas de otras carreras que también cumplen el requisito:</div>';
+      info.externos.forEach(function(g){
+        if(g.opcional) html+='<div class="group-hint">Cualquiera de los siguientes:</div>';
+        g.items.forEach(function(it){
+          var color=it.ok?'var(--approved)':'var(--external)';
+          var check=it.ok?'✓':'○';
+          html+='<div class="req-item"><span style="color:'+color+';font-weight:700;font-size:12px;width:14px;text-align:center;">'+check+'</span><span style="font-family:monospace;font-size:11px;color:var(--external)">'+it.cod+'</span><span class="external-badge">Externo</span></div>';
+        });
+      });
+    }
+    if(info.correquisitos.length>0){
+      html+='<div class="section-sep"></div>';
+      html+='<div style="font-size:10px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent2);margin:4px 0;font-weight:700;">Correquisitos</div>';
+      info.correquisitos.forEach(function(g){
+        if(g.opcional) html+='<div class="group-hint">Cualquiera de los siguientes:</div>';
+        g.items.forEach(function(it){
+          var color=it.ok?'var(--approved)':'var(--accent2)';
+          var check=it.ok?'✓':'○';
+          var badge=it.externo?'<span class="external-badge">Externo</span>':'';
+          html+='<div class="req-item"><span style="color:'+color+';font-weight:700;font-size:12px;width:14px;text-align:center;">'+check+'</span><span style="font-family:monospace;font-size:11px;color:var(--muted)">'+it.cod+'</span><span style="font-size:11px;">'+it.nombre+'</span>'+badge+'</div>';
+        });
+      });
+    }
+  }
+  tooltip.innerHTML=html;
+  tooltip.classList.add('show');
+  moveTooltip(e);
+}
+function moveTooltip(e){
+  var x=e.clientX+14, y=e.clientY+14;
+  var rect=tooltip.getBoundingClientRect();
+  if(x+rect.width>window.innerWidth-10)x=e.clientX-rect.width-14;
+  if(y+rect.height>window.innerHeight-10)y=e.clientY-rect.height-14;
+  tooltip.style.left=x+'px'; tooltip.style.top=y+'px';
+}
+function hideTooltip(){tooltip.classList.remove('show');}
+
+window.clearAll=function(){
+  if(confirm('¿Borrar todo el avance y las notas?')){
+    aprobados.clear(); notas={}; guardarAvance(); actualizarVista();
+  }
+};
+window.markAll=function(){
+  for(var c in cursos){if(prerrequisitosCumplidos(c,aprobados))aprobados.add(c);}
+  guardarAvance(); actualizarVista();
+};
+window.markTri=function(n){
+  for(var c in cursos){if(cursos[c].tri<=n&&prerrequisitosCumplidos(c,aprobados))aprobados.add(c);}
+  guardarAvance(); actualizarVista();
+};
+
+// INICIALIZAR
+construirMapaDependencias();
+crearEstructura();
+cargarAvance();
+actualizarVista();
+})();
+</script>
+</body>
+</html>
