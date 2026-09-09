@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal de Mallas Curriculares</title>
+    <style>
+        :root {
+            --bg: #0d2942;
+            --card: #123a5c;
+            --card-hover: #16496f;
+            --text: #eef4f9;
+            --muted: #87a5bd;
+            --accent: #57c7e6;
+            --accent-hover: #7dd5ed;
+            --radius: 6px;
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, system-ui, sans-serif;
+            background: linear-gradient(135deg, var(--bg), #071b2c);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .container {
+            width: 100%;
+            max-width: 640px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 26px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+        p.subtitle {
+            color: var(--muted);
+            font-size: 15px;
+        }
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        .card-link {
+            display: block;
+            background: var(--card);
+            color: var(--text);
+            text-decoration: none;
+            padding: 18px 22px;
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,.08);
+            transition: all .2s ease;
+        }
+        .card-link:hover {
+            background: var(--card-hover);
+            border-color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,.25);
+        }
+        .card-link strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: var(--accent);
+        }
+        .card-link span {
+            font-size: 13px;
+            color: var(--muted);
+        }
+        footer {
+            margin-top: 50px;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>📚 Mallas Curriculares Interactivas</h1>
+        <p class="subtitle">Selecciona la versión que deseas consultar</p>
+    </header>
+
+    <div class="card-list">
+        <a href="Malla.html" class="card-link">
+            <strong>📋 Malla Curricular</strong>
+            <span>Versión general</span>
+        </a>
+
+        <a href="malla_curricular_interactiva.html" class="card-link">
+            <strong>🚀 Malla Curricular Interactiva</strong>
+            <span>Versión con avance, requisitos y gráficos</span>
+        </a>
+
+        <a href="MallaPPA.html" class="card-link">
+            <strong>🎓 Malla — Plan de Progreso Académico (PPA)</strong>
+            <span>Versión para seguimiento de avance PPA</span>
+        </a>
+    </div>
+
+    <footer>
+        Repositorio Varias · Universidad Andrés Bello
+    </footer>
+</div>
+
+</body>
+</html>
