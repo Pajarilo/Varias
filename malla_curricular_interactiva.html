@@ -33,6 +33,7 @@
     --font-mono:'IBM Plex Mono',ui-monospace,'SFMono-Regular',Menlo,Consolas,monospace;
     --radius:4px;
   }
+
   *{box-sizing:border-box;}
   html,body{margin:0;padding:0;}
   body{
@@ -46,6 +47,8 @@
     -webkit-font-smoothing:antialiased;
     min-height:100vh;
   }
+
+  /* faint blueprint grid overlay */
   .grid-overlay{
     position:fixed; inset:0; pointer-events:none; z-index:0;
     background-image:
@@ -56,7 +59,10 @@
     mask-image:linear-gradient(to bottom, rgba(0,0,0,.55), rgba(0,0,0,.15) 70%);
     opacity:.5;
   }
+
   a{color:inherit;}
+
+  /* ---------- Header ---------- */
   header.topbar{
     position:relative; z-index:1;
     display:flex; align-items:center; justify-content:space-between; gap:16px;
@@ -72,7 +78,9 @@
     margin:0; font-size:12.5px; color:var(--muted); font-family:var(--font-mono);
   }
   .topbar-actions{display:flex; align-items:center; gap:10px;}
+
   button{font-family:var(--font-head); cursor:pointer;}
+
   .btn{
     background:var(--ink-700); color:var(--paper); border:1px solid var(--line-soft-2);
     border-radius:var(--radius); padding:9px 14px; font-size:13px; font-weight:500;
@@ -81,11 +89,14 @@
   .btn:hover{background:var(--ink-650); border-color:var(--cyan-line);}
   .btn:active{transform:translateY(1px);}
   .btn:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+
   select.select{
     background:var(--ink-700); color:var(--paper); border:1px solid var(--line-soft-2);
     border-radius:var(--radius); padding:8px 10px; font-size:13px; font-family:var(--font-mono);
   }
   select.select:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+
+  /* ---------- Dashboard ---------- */
   .dashboard{
     position:relative; z-index:1;
     display:flex; align-items:stretch; gap:16px; flex-wrap:wrap;
@@ -96,6 +107,7 @@
     border:1px solid var(--line-soft-2); border-radius:var(--radius);
     padding:14px 18px;
   }
+
   .gauge-card{display:flex; align-items:center; gap:14px; min-width:190px;}
   .gauge-wrap{position:relative; width:78px; height:78px; flex:0 0 auto;}
   .gauge-wrap svg{transform:rotate(-90deg);}
@@ -108,14 +120,17 @@
   }
   .gauge-meta p{margin:0; font-size:11.5px; letter-spacing:.4px; color:var(--muted); text-transform:uppercase;}
   .gauge-meta strong{display:block; font-size:13.5px; font-weight:600; margin-top:2px; color:var(--paper);}
+
   .stat-row{display:flex; gap:16px; flex-wrap:wrap;}
   .stat-card{min-width:132px; display:flex; flex-direction:column; justify-content:center; gap:4px;}
   .stat-card .stat-label{font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--muted);}
   .stat-card .stat-value{font-family:var(--font-mono); font-size:20px; font-weight:600;}
   .stat-card .stat-value.cyan{color:var(--cyan);}
   .stat-card .stat-value.amber{color:var(--amber);}
+
   .quick-card{display:flex; flex-direction:column; gap:8px; justify-content:center; min-width:220px;}
   .quick-card label{font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--muted);}
+
   .legend-card{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
   .legend-item{display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--muted);}
   .legend-dot{width:11px; height:11px; border-radius:2px; flex:0 0 auto;}
@@ -124,10 +139,13 @@
   .legend-dot.locked{background:var(--locked);}
   .legend-line{width:16px; height:2px; background:var(--violet); position:relative;}
   .legend-line::after{content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,var(--violet) 0 3px, transparent 3px 6px);}
+
   .hint{
     position:relative; z-index:1; margin:2px clamp(16px,4vw,40px) 14px; font-size:12.5px; color:var(--muted-2);
   }
   .hint strong{color:var(--muted);}
+
+  /* ---------- Board ---------- */
   .board-scroll{
     position:relative; z-index:1;
     overflow-x:auto; overflow-y:hidden;
@@ -137,6 +155,7 @@
   .board-inner{position:relative; display:inline-block;}
   .columns{display:inline-flex; gap:26px; align-items:stretch;}
   .column{width:236px; flex:0 0 236px; display:flex; flex-direction:column; scroll-snap-align:start;}
+
   .column-header{padding-bottom:10px; border-bottom:1px solid var(--line-soft-2); margin-bottom:14px;}
   .column-header-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
   .tri-number{font-family:var(--font-mono); font-size:22px; font-weight:600; color:var(--paper);}
@@ -152,7 +171,9 @@
   .col-action:hover:not(:disabled){border-color:var(--cyan-line); background:var(--cyan-soft);}
   .col-action:disabled{opacity:.3; cursor:default; color:var(--muted);}
   .col-action:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+
   .column-cards{display:flex; flex-direction:column; gap:14px;}
+
   svg.connectors{position:absolute; top:0; left:0; z-index:1; pointer-events:none; overflow:visible;}
   .wire{fill:none; stroke-width:1.6; transition:stroke .25s ease, opacity .25s ease;}
   .wire.wire-locked{stroke:var(--locked-line); opacity:.55; stroke-dasharray:4 5;}
@@ -161,6 +182,8 @@
   .wire.wire-coreq{stroke:var(--violet); stroke-width:1.4; stroke-dasharray:2.5 4; opacity:.55;}
   .wire.wire-dim{opacity:.06 !important; filter:none !important;}
   .wire.wire-trace{opacity:1 !important; stroke-width:2.2;}
+
+  /* ---------- Card / chip ---------- */
   .card{
     position:relative; z-index:2;
     display:block; width:100%; text-align:left;
@@ -175,6 +198,7 @@
   }
   .card::before{left:-1px; border-radius:2px 0 0 2px;}
   .card::after{right:-1px; border-radius:0 2px 2px 0;}
+
   .card-top{display:flex; align-items:flex-start; justify-content:space-between; gap:8px;}
   .card-code{font-family:var(--font-mono); font-size:12.5px; font-weight:600; letter-spacing:.3px; color:var(--paper);}
   .status-icon{
@@ -191,26 +215,32 @@
     font-family:var(--font-mono); font-size:10px; color:var(--violet); border:1px dashed rgba(180,138,245,.5);
     border-radius:3px; padding:1.5px 5px;
   }
+
   .card.state-locked{opacity:.62; cursor:pointer;}
   .card.state-locked:hover{border-color:var(--locked-line); opacity:.8;}
+
   .card.state-unlocked{border-color:var(--cyan-line); box-shadow:0 0 0 1px rgba(87,199,230,.12), 0 0 14px rgba(87,199,230,.12);}
   .card.state-unlocked::before, .card.state-unlocked::after{background:var(--cyan); box-shadow:0 0 6px var(--cyan-line);}
   .card.state-unlocked .status-icon{background:var(--cyan); color:var(--ink-900);}
   .card.state-unlocked:hover{border-color:var(--cyan); transform:translateY(-1px); box-shadow:0 0 0 1px rgba(87,199,230,.25), 0 0 20px rgba(87,199,230,.22);}
+
   .card.state-approved{background:linear-gradient(180deg, var(--ink-650), var(--ink-700)); border-color:var(--amber-line); box-shadow:0 0 0 1px rgba(242,165,61,.14), 0 0 16px rgba(242,165,61,.14);}
   .card.state-approved::before, .card.state-approved::after{background:var(--amber); box-shadow:0 0 6px var(--amber-line);}
   .card.state-approved .status-icon{background:var(--amber); color:var(--ink-900);}
   .card.state-approved:hover{transform:translateY(-1px);}
+
   .card.is-dim{opacity:.16;}
   .card.is-traced{opacity:1; z-index:3;}
   .card.is-traced.state-locked{opacity:.85;}
   .card.trace-self{box-shadow:0 0 0 2px var(--paper), 0 0 22px rgba(238,244,249,.25);}
+
   @keyframes pulse-unlock{
     0%{box-shadow:0 0 0 0 rgba(87,199,230,.55);}
     70%{box-shadow:0 0 0 14px rgba(87,199,230,0);}
     100%{box-shadow:0 0 0 0 rgba(87,199,230,0);}
   }
   .card.just-unlocked{animation:pulse-unlock 1.1s ease-out 1;}
+
   @keyframes shake{
     10%,90%{transform:translateX(-1px);}
     20%,80%{transform:translateX(2px);}
@@ -218,12 +248,15 @@
     40%,60%{transform:translateX(3px);}
   }
   .card.shake{animation:shake .5s ease;}
+
+  /* ---------- Tooltip & toast ---------- */
   .tooltip{
     position:fixed; z-index:50; max-width:240px; background:var(--ink-850); border:1px solid var(--coral);
     border-radius:var(--radius); padding:9px 11px; font-size:12px; line-height:1.45; color:var(--paper);
     box-shadow:0 8px 24px rgba(0,0,0,.4); pointer-events:none;
   }
   .tooltip strong{display:block; color:var(--coral); font-size:11px; text-transform:uppercase; letter-spacing:.3px; margin-bottom:4px;}
+
   .toast-stack{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60; display:flex; flex-direction:column; gap:8px; align-items:center;}
   .toast{
     background:var(--ink-800); border:1px solid var(--amber-line); color:var(--paper); font-size:13px;
@@ -234,15 +267,17 @@
   @keyframes toast-in{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
   .toast.leaving{animation:toast-out .25s ease-in forwards;}
   @keyframes toast-out{to{opacity:0; transform:translateY(6px);}}
+
   footer{
     position:relative; z-index:1; padding:8px clamp(16px,4vw,40px) 34px; font-size:11.5px; color:var(--muted-2); max-width:900px;
   }
   footer p{margin:4px 0;}
-  .persist-note{font-size:11px; color:var(--muted); margin-left:auto;}
+
   @media (prefers-reduced-motion: reduce){
     .card, .btn, .col-action, .gauge-fill, .tri-progress-fill{transition:none !important;}
     .card.just-unlocked, .card.shake, .toast{animation:none !important;}
   }
+
   @media (max-width:640px){
     .dashboard{gap:10px;}
     .panel{padding:12px 14px;}
@@ -253,6 +288,7 @@
 </head>
 <body>
 <div class="grid-overlay" aria-hidden="true"></div>
+
 <header class="topbar">
   <div class="brand">
     <svg class="brand-mark" viewBox="0 0 42 42" aria-hidden="true">
@@ -267,11 +303,10 @@
     </div>
   </div>
   <div class="topbar-actions">
-    <button class="btn" id="exportBtn" type="button">📤 Exportar avance</button>
-    <button class="btn" id="importBtn" type="button">📥 Importar avance</button>
-    <button class="btn" id="resetBtn" type="button">🔄 Reiniciar</button>
+    <button class="btn" id="resetBtn" type="button">Reiniciar avance</button>
   </div>
 </header>
+
 <section class="dashboard" aria-label="Resumen de avance">
   <div class="panel gauge-card">
     <div class="gauge-wrap">
@@ -286,6 +321,7 @@
       <strong id="gaugeCredits">0 / 0 CR</strong>
     </div>
   </div>
+
   <div class="panel stat-row">
     <div class="stat-card">
       <span class="stat-label">Ramos aprobados</span>
@@ -300,6 +336,7 @@
       <span class="stat-value" id="statLocked">0</span>
     </div>
   </div>
+
   <div class="panel quick-card">
     <label for="quickSelect">Cargar avance rápido</label>
     <select class="select" id="quickSelect">
@@ -314,6 +351,7 @@
       <option value="8">Malla completa</option>
     </select>
   </div>
+
   <div class="panel legend-card">
     <span class="legend-item"><span class="legend-dot approved"></span>Aprobado</span>
     <span class="legend-item"><span class="legend-dot unlocked"></span>Disponible</span>
@@ -321,7 +359,9 @@
     <span class="legend-item"><span class="legend-line"></span>Correquisito</span>
   </div>
 </section>
-<p class="hint"><strong>Cómo usarla:</strong> haz clic en un ramo disponible para marcarlo como aprobado — verás en vivo qué otros ramos se habilitan. Pasa el cursor sobre cualquier ramo para trazar su cadena completa de requisitos. <strong>Tu avance se guarda automáticamente.</strong></p>
+
+<p class="hint"><strong>Cómo usarla:</strong> haz clic en un ramo disponible para marcarlo como aprobado — verás en vivo qué otros ramos se habilitan. Pasa el cursor sobre cualquier ramo para trazar su cadena completa de requisitos.</p>
+
 <div class="board-scroll" id="boardScroll">
   <div class="board-inner" id="boardInner">
     <svg class="connectors" id="connectors" xmlns="http://www.w3.org/2000/svg">
@@ -340,63 +380,76 @@
     <div class="columns" id="columns"></div>
   </div>
 </div>
+
 <footer>
   <p>Datos extraídos de la malla oficial UNAB (programa UNAB39212, periodo catálogo 2023, periodo 202605). Los requisitos con vías alternativas de otros programas o convalidaciones se simplificaron a la ruta interna de esta malla.</p>
   <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación del ramo. Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad.</p>
 </footer>
+
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
 <div class="tooltip" id="tooltip" hidden></div>
+
 <script>
 (function(){
   "use strict";
-  const STORAGE_KEY = 'malla-aprobados-unab39212';
 
   /* ----------------------------------------------------------------
-     1. DATOS — malla curricular
+     1. DATOS — malla curricular (código, nombre, trimestre, créditos,
+        requisitos y correquisitos internos a esta malla)
   ---------------------------------------------------------------- */
   const COURSES = [
     {code:'AAUT101', name:'ELECTRÓNICA ANÁLOGA Y DIGITAL', tri:1, credits:15, prereq:[], coreq:[]},
     {code:'ATDF101', name:'TÓPICOS DE INGENIERÍA', tri:1, credits:8, prereq:[], coreq:[]},
     {code:'ATDF102', name:'INTRODUCCIÓN A LA PROGRAMACIÓN', tri:1, credits:10, prereq:[], coreq:[]},
     {code:'INGA119', name:'INGLÉS I', tri:1, credits:8, prereq:[], coreq:[]},
+
     {code:'AAUT102', name:'PLANOS Y NORMAS', tri:2, credits:11, prereq:['AAUT101'], coreq:[]},
     {code:'AAUT111', name:'PLC AVANZADO', tri:2, credits:10, prereq:['AAUT101'], coreq:[]},
     {code:'AAUT121', name:'INSTRUMENTACIÓN INDUSTRIAL', tri:2, credits:10, prereq:[], coreq:['AAUT102']},
     {code:'INGA129', name:'INGLÉS II', tri:2, credits:8, prereq:['INGA119'], coreq:[]},
+
     {code:'AAUT211', name:'REDES DE DATOS INDUSTRIALES', tri:3, credits:11, prereq:['AAUT111','AAUT121'], coreq:[]},
     {code:'ATDF103', name:'BASE DE DATOS', tri:3, credits:8, prereq:['ATDF102'], coreq:[]},
     {code:'FMMA015', name:'FUNDAMENTOS DE MATEMÁTICAS', tri:3, credits:14, prereq:[], coreq:[]},
     {code:'INGA239', name:'INGLÉS III', tri:3, credits:8, prereq:['INGA129'], coreq:[]},
+
     {code:'AAUT221', name:'NEUMÁTICA E HIDRÁULICA', tri:4, credits:9, prereq:['AAUT121'], coreq:[]},
     {code:'CFSA3220', name:'MECÁNICA', tri:4, credits:10, prereq:['FMMA015','AAUT101'], coreq:['FMMA115']},
     {code:'FMMA115', name:'CÁLCULO DIFERENCIAL E INTEGRAL', tri:4, credits:14, prereq:['FMMA015'], coreq:[]},
     {code:'INGA249', name:'INGLÉS IV', tri:4, credits:8, prereq:['INGA239'], coreq:[]},
+
     {code:'AAUT103', name:'MICROCONTROLADORES', tri:5, credits:9, prereq:['AAUT101'], coreq:[]},
     {code:'AAUT122', name:'REDES ELÉCTRICAS DE BAJA Y ALTA POTENCIA', tri:5, credits:11, prereq:['AAUT101'], coreq:['CFSA3440']},
     {code:'AAUT212', name:'MONITOREO Y SUPERVISIÓN DE DATOS', tri:5, credits:10, prereq:['ATDF103','AAUT111','AAUT211'], coreq:[]},
     {code:'CFSA3440', name:'ELECTRICIDAD Y MAGNETISMO', tri:5, credits:10, prereq:['CFSA3220'], coreq:[]},
+
     {code:'AACD101', name:'TALLER DE INNOVACIÓN Y EMPRENDIMIENTO I', tri:6, credits:8, prereq:['ATDF101'], coreq:[]},
     {code:'AAUT112', name:'TEORÍA DE CONTROL', tri:6, credits:10, prereq:['CFSA3220','FMMA115'], coreq:[]},
     {code:'AAUT213', name:'ROBÓTICA INDUSTRIAL', tri:6, credits:10, prereq:['AAUT121'], coreq:['AAUT112']},
     {code:'AAUT323', name:'INTEGRADOR I: SEMINARIO DE INGENIERÍA', tri:6, credits:13, prereq:['AAUT212','AAUT103','AAUT122','CFSA3440'], coreq:[]},
+
     {code:'AACD102', name:'TALLER DE INNOVACIÓN Y EMPRENDIMIENTO II', tri:7, credits:8, prereq:['AACD101'], coreq:[]},
     {code:'AAUT214', name:'TÉCNICAS AVANZADAS DE CONTROL', tri:7, credits:12, prereq:['AAUT112'], coreq:[]},
     {code:'AAUT301', name:'PORTAFOLIO DE PROYECTOS', tri:7, credits:16, prereq:['AAUT323'], coreq:[]},
     {code:'FMSA315', name:'TALLER DE MÉTODOS CUANTITATIVOS', tri:7, credits:14, prereq:['FMMA115'], coreq:[]},
+
     {code:'AAUT324', name:'INTEGRADOR II: PROYECTO DE TÍTULO', tri:8, credits:17, prereq:['AAUT301'], coreq:[]},
     {code:'ATDF105', name:'MINERÍA DE DATOS', tri:8, credits:10, prereq:['FMSA315'], coreq:[]},
     {code:'ATDF106', name:'GESTIÓN DE LA TRANSFORMACIÓN DIGITAL', tri:8, credits:8, prereq:['ATDF103'], coreq:[]},
     {code:'CEGARS14', name:'RESPONSABILIDAD SOCIAL', tri:8, credits:6, prereq:[], coreq:[]},
   ];
+
   const byCode = {};
   COURSES.forEach(c => byCode[c.code] = c);
   const TOTAL_CREDITS = COURSES.reduce((s,c)=>s+c.credits,0);
   const TOTAL_COURSES = COURSES.length;
   const TRIS = [1,2,3,4,5,6,7,8];
 
+  // grafo de dependientes directos (para trazado y cascada al desmarcar)
   const dependents = {};
   COURSES.forEach(c => dependents[c.code] = []);
   COURSES.forEach(c => c.prereq.forEach(p => { if(dependents[p]) dependents[p].push(c.code); }));
+
   function ancestorsOf(code){
     const seen = new Set(); const stack = [...byCode[code].prereq];
     while(stack.length){ const p = stack.pop(); if(!seen.has(p)){ seen.add(p); stack.push(...byCode[p].prereq); } }
@@ -408,6 +461,7 @@
     return seen;
   }
 
+  /* ---------------------------------------------------------------- */
   const MINOR = new Set(['y','de','la','el','los','las','en','del','al','a','o','u','para']);
   const ROMAN = /^(I|II|III|IV|V|VI|VII|VIII|IX|X)$/i;
   function titleCase(str){
@@ -420,6 +474,7 @@
       return out+trail;
     }).join(' ');
   }
+
   const ICONS = {
     check:'<svg viewBox="0 0 16 16" width="12" height="12"><path d="M3 8.6l3.1 3.1L13 4.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>',
     lock:'<svg viewBox="0 0 16 16" width="11" height="11"><rect x="3.5" y="7" width="9" height="6.3" rx="1.1" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.2 7V5.2a2.8 2.8 0 0 1 5.6 0V7" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>',
@@ -427,66 +482,10 @@
   };
 
   /* ----------------------------------------------------------------
-     2. PERSISTENCIA: Guardar y cargar desde localStorage
+     2. ESTADO
   ---------------------------------------------------------------- */
   const approved = new Set();
 
-  function guardarAvance(){
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify([...approved]));
-    } catch(e) {
-      console.warn('No se pudo guardar el avance:', e);
-    }
-  }
-
-  function cargarAvance(){
-    try {
-      const guardado = localStorage.getItem(STORAGE_KEY);
-      if(guardado){
-        const codigos = JSON.parse(guardado);
-        approved.clear();
-        codigos.forEach(c => approved.add(c));
-        return true;
-      }
-    } catch(e) {
-      console.warn('No se pudo cargar el avance:', e);
-    }
-    return false;
-  }
-
-  function exportarAvance(){
-    const datos = btoa(JSON.stringify([...approved]));
-    navigator.clipboard.writeText(datos).then(()=>{
-      showToast('Código de respaldo copiado al portapapeles ✅', true);
-    }).catch(()=>{
-      const ta = document.createElement('textarea');
-      ta.value = datos;
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      showToast('Código de respaldo copiado ✅', true);
-    });
-  }
-
-  function importarAvance(){
-    const codigo = prompt('Pega aquí tu código de respaldo:');
-    if(!codigo) return;
-    try {
-      const codigos = JSON.parse(atob(codigo));
-      approved.clear();
-      codigos.forEach(c => approved.add(c));
-      guardarAvance();
-      renderAll();
-      showToast('Avance restaurado correctamente ✅', true);
-    } catch(e) {
-      showToast('Código inválido ❌', false);
-    }
-  }
-
-  /* ----------------------------------------------------------------
-     3. ESTADO
-  ---------------------------------------------------------------- */
   function stateOf(code){
     if(approved.has(code)) return 'approved';
     const c = byCode[code];
@@ -494,17 +493,19 @@
   }
 
   /* ----------------------------------------------------------------
-     4. CONSTRUCCIÓN DEL DOM
+     3. CONSTRUCCIÓN DEL DOM
   ---------------------------------------------------------------- */
   const columnsEl = document.getElementById('columns');
   const boardInner = document.getElementById('boardInner');
   const svg = document.getElementById('connectors');
   const cardEls = {};
   const colHeaderEls = {};
+
   TRIS.forEach(tri=>{
     const courses = COURSES.filter(c=>c.tri===tri);
     const col = document.createElement('div');
     col.className = 'column';
+
     const header = document.createElement('div');
     header.className = 'column-header';
     header.innerHTML =
@@ -520,14 +521,17 @@
     header.appendChild(approveBtn);
     col.appendChild(header);
     colHeaderEls[tri] = { count: header.querySelector('[data-role="count"]'), fill: header.querySelector('[data-role="fill"]'), btn: approveBtn };
+
     const list = document.createElement('div');
     list.className = 'column-cards';
+
     courses.forEach(course=>{
       const card = document.createElement('button');
       card.type='button';
       card.className='card';
       card.id='card-'+course.code;
       card.dataset.code = course.code;
+
       const coreqTags = course.coreq.map(c=>'<span class="coreq-tag">co&middot;'+c+'</span>').join('');
       card.innerHTML =
         '<div class="card-top">'+
@@ -536,22 +540,26 @@
         '</div>'+
         '<div class="card-name">'+titleCase(course.name)+'</div>'+
         '<div class="card-foot"><span class="credits-tag">'+course.credits+' CR</span>'+coreqTags+'</div>';
+
       card.addEventListener('click', ()=>handleCardClick(course.code));
       card.addEventListener('mouseenter', ()=>traceOn(course.code));
       card.addEventListener('mouseleave', traceOff);
       card.addEventListener('focus', ()=>traceOn(course.code));
       card.addEventListener('blur', traceOff);
+
       cardEls[course.code] = card;
       list.appendChild(card);
     });
+
     col.appendChild(list);
     columnsEl.appendChild(col);
   });
 
   /* ----------------------------------------------------------------
-     5. CONECTORES
+     4. CONECTORES (SVG)
   ---------------------------------------------------------------- */
-  let wires = [];
+  let wires = []; // {from, to, el, type}
+
   function layoutConnectors(){
     const w = boardInner.offsetWidth;
     const h = boardInner.offsetHeight;
@@ -559,9 +567,13 @@
     svg.setAttribute('width', w);
     svg.setAttribute('height', h);
     svg.setAttribute('viewBox', '0 0 '+w+' '+h);
+
+    // limpiar paths previos (conservar <defs>)
     svg.querySelectorAll('path.wire').forEach(p=>p.remove());
     wires = [];
+
     const drawnCoreq = new Set();
+
     COURSES.forEach(course=>{
       const elTo = cardEls[course.code];
       course.prereq.forEach(p=>{
@@ -609,11 +621,13 @@
         wires.push({from:course.code, to:c, el:path, type:'coreq'});
       });
     });
+
     updateWireStates();
   }
+
   function updateWireStates(){
     wires.forEach(w=>{
-      if(w.type==='coreq') return;
+      if(w.type==='coreq') return; // el estilo de correquisito es fijo
       const fromDone = approved.has(w.from);
       const toDone = approved.has(w.to);
       w.el.classList.remove('wire-locked','wire-satisfied','wire-complete');
@@ -631,10 +645,228 @@
   }
 
   /* ----------------------------------------------------------------
-     6. RENDER
+     5. RENDER DE ESTADOS
   ---------------------------------------------------------------- */
   function renderCard(code){
     const course = byCode[code];
     const el = cardEls[code];
     const st = stateOf(code);
-    el.classList.remove
+    el.classList.remove('state-locked','state-unlocked','state-approved');
+    el.classList.add('state-'+st);
+    const icon = el.querySelector('[data-role="icon"]');
+    let label;
+    if(st==='approved'){ icon.innerHTML = ICONS.check; label='aprobado'; el.setAttribute('aria-pressed','true'); }
+    else if(st==='unlocked'){ icon.innerHTML = ICONS.bolt; label='disponible para aprobar'; el.setAttribute('aria-pressed','false'); }
+    else { icon.innerHTML = ICONS.lock; label='bloqueado'; el.setAttribute('aria-pressed','false'); }
+    const missing = course.prereq.filter(p=>!approved.has(p));
+    let aria = course.code+', '+titleCase(course.name)+', '+course.credits+' créditos, '+label+'.';
+    if(st==='locked') aria += ' Requiere: '+missing.map(p=>p+' '+titleCase(byCode[p].name)).join(', ')+'.';
+    el.setAttribute('aria-label', aria);
+  }
+
+  function renderAllCards(){ COURSES.forEach(c=>renderCard(c.code)); }
+
+  function renderColumns(){
+    TRIS.forEach(tri=>{
+      const courses = COURSES.filter(c=>c.tri===tri);
+      const approvedN = courses.filter(c=>approved.has(c.code)).length;
+      const availableN = courses.filter(c=>stateOf(c.code)==='unlocked').length;
+      const ref = colHeaderEls[tri];
+      ref.count.textContent = approvedN+'/'+courses.length;
+      ref.fill.style.width = (approvedN/courses.length*100).toFixed(0)+'%';
+      ref.btn.disabled = availableN===0;
+      ref.btn.textContent = availableN>0 ? ('Aprobar '+availableN+' disponible'+(availableN>1?'s':'')) : 'Aprobar disponibles';
+    });
+  }
+
+  function renderDashboard(){
+    const approvedCredits = COURSES.filter(c=>approved.has(c.code)).reduce((s,c)=>s+c.credits,0);
+    const pct = TOTAL_CREDITS ? approvedCredits/TOTAL_CREDITS : 0;
+    const circumference = 2*Math.PI*33;
+    document.getElementById('gaugeFill').style.strokeDasharray = circumference.toFixed(1);
+    document.getElementById('gaugeFill').style.strokeDashoffset = (circumference*(1-pct)).toFixed(1);
+    document.getElementById('gaugeNum').textContent = Math.round(pct*100)+'%';
+    document.getElementById('gaugeCredits').textContent = approvedCredits+' / '+TOTAL_CREDITS+' CR';
+    document.getElementById('statCourses').textContent = approved.size+' / '+TOTAL_COURSES;
+    const unlockedN = COURSES.filter(c=>stateOf(c.code)==='unlocked').length;
+    const lockedN = COURSES.filter(c=>stateOf(c.code)==='locked').length;
+    document.getElementById('statUnlocked').textContent = unlockedN;
+    document.getElementById('statLocked').textContent = lockedN;
+  }
+
+  function renderAll(){ renderAllCards(); renderColumns(); renderDashboard(); updateWireStates(); }
+
+  /* ----------------------------------------------------------------
+     6. INTERACCIÓN
+  ---------------------------------------------------------------- */
+  function handleCardClick(code){
+    const st = stateOf(code);
+    if(st==='locked'){
+      denyCard(code);
+      return;
+    }
+    if(st==='approved'){
+      unapprove(code);
+    } else {
+      approveOne(code);
+    }
+  }
+
+  function approveOne(code){
+    const beforeLocked = COURSES.filter(c=>stateOf(c.code)==='locked').map(c=>c.code);
+    approved.add(code);
+    renderAll();
+    layoutIfNeeded();
+    const newlyUnlocked = beforeLocked.filter(c=>stateOf(c)==='unlocked');
+    celebrate(newlyUnlocked);
+  }
+
+  function unapprove(code){
+    // cascada: si algo aprobado depende (directa o indirectamente) de este ramo, se desmarca también
+    const toRemove = new Set([code]);
+    let changed = true;
+    while(changed){
+      changed = false;
+      approved.forEach(a=>{
+        if(toRemove.has(a)) return;
+        const c = byCode[a];
+        if(c.prereq.some(p=>toRemove.has(p))){ toRemove.add(a); changed = true; }
+      });
+    }
+    const cascaded = [...toRemove].filter(c=>c!==code);
+    toRemove.forEach(c=>approved.delete(c));
+    renderAll();
+    if(cascaded.length){
+      showToast('También se desmarcaron '+cascaded.length+' ramo'+(cascaded.length>1?'s':'')+' que dependían de '+code+': '+cascaded.join(', ')+'.');
+    }
+  }
+
+  function approveColumn(tri){
+    const courses = COURSES.filter(c=>c.tri===tri);
+    const beforeLocked = COURSES.filter(c=>stateOf(c.code)==='locked').map(c=>c.code);
+    let count = 0;
+    courses.forEach(c=>{ if(stateOf(c.code)==='unlocked'){ approved.add(c.code); count++; } });
+    if(count===0) return;
+    renderAll();
+    const newlyUnlocked = beforeLocked.filter(c=>stateOf(c)==='unlocked');
+    celebrate(newlyUnlocked, 'Trimestre '+tri+' aprobado');
+  }
+
+  function denyCard(code){
+    const el = cardEls[code];
+    el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
+    const course = byCode[code];
+    const missing = course.prereq.filter(p=>!approved.has(p));
+    const rect = el.getBoundingClientRect();
+    showTooltip(
+      '<strong>Bloqueado</strong>Necesitas aprobar antes: '+missing.map(p=>p+' — '+titleCase(byCode[p].name)).join('; ')+'.',
+      rect
+    );
+  }
+
+  function celebrate(newlyUnlockedCodes, prefix){
+    newlyUnlockedCodes.forEach(c=>{
+      const el = cardEls[c];
+      el.classList.remove('just-unlocked'); void el.offsetWidth; el.classList.add('just-unlocked');
+    });
+    if(newlyUnlockedCodes.length){
+      const names = newlyUnlockedCodes.slice(0,4).join(', ')+(newlyUnlockedCodes.length>4?'…':'');
+      const msg = (prefix?prefix+' — ':'')+'se habilitaron '+newlyUnlockedCodes.length+' ramo'+(newlyUnlockedCodes.length>1?'s':'')+': '+names;
+      showToast(msg, true);
+    } else if(prefix){
+      showToast(prefix, true);
+    }
+  }
+
+  /* ----- tooltip ----- */
+  const tooltipEl = document.getElementById('tooltip');
+  let tooltipTimer = null;
+  function showTooltip(html, rect){
+    tooltipEl.innerHTML = html;
+    tooltipEl.hidden = false;
+    const tw = 240;
+    let left = rect.left + rect.width/2 - tw/2;
+    left = Math.max(10, Math.min(left, window.innerWidth-tw-10));
+    let top = rect.bottom + 8;
+    if(top + 90 > window.innerHeight) top = rect.top - 98;
+    tooltipEl.style.left = left+'px';
+    tooltipEl.style.top = top+'px';
+    tooltipEl.style.width = tw+'px';
+    clearTimeout(tooltipTimer);
+    tooltipTimer = setTimeout(()=>{ tooltipEl.hidden = true; }, 4200);
+  }
+  document.addEventListener('scroll', ()=>{ tooltipEl.hidden = true; }, true);
+
+  /* ----- toasts ----- */
+  const toastStack = document.getElementById('toastStack');
+  function showToast(msg, positive){
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.style.borderColor = positive ? 'var(--amber-line)' : 'rgba(232,115,90,.6)';
+    t.textContent = msg;
+    toastStack.appendChild(t);
+    setTimeout(()=>{
+      t.classList.add('leaving');
+      setTimeout(()=>t.remove(), 260);
+    }, 3400);
+  }
+
+  /* ----- trazado de dependencias al pasar el cursor ----- */
+  function traceOn(code){
+    const anc = ancestorsOf(code);
+    const desc = descendantsOf(code);
+    COURSES.forEach(c=>{
+      const el = cardEls[c.code];
+      el.classList.remove('is-dim','is-traced','trace-self');
+      if(c.code===code){ el.classList.add('is-traced','trace-self'); }
+      else if(anc.has(c.code) || desc.has(c.code)){ el.classList.add('is-traced'); }
+      else { el.classList.add('is-dim'); }
+    });
+    const kept = new Set([code, ...anc, ...desc]);
+    wires.forEach(w=>{
+      if(kept.has(w.from) && kept.has(w.to)){ w.el.classList.add('wire-trace'); w.el.classList.remove('wire-dim'); }
+      else { w.el.classList.add('wire-dim'); w.el.classList.remove('wire-trace'); }
+    });
+  }
+  function traceOff(){
+    COURSES.forEach(c=>cardEls[c.code].classList.remove('is-dim','is-traced','trace-self'));
+    wires.forEach(w=>{ w.el.classList.remove('wire-trace','wire-dim'); });
+  }
+
+  /* ----- controles globales ----- */
+  document.getElementById('resetBtn').addEventListener('click', ()=>{
+    approved.clear();
+    document.getElementById('quickSelect').value = '0';
+    renderAll();
+  });
+
+  document.getElementById('quickSelect').addEventListener('change', (e)=>{
+    const n = parseInt(e.target.value, 10);
+    approved.clear();
+    COURSES.forEach(c=>{ if(c.tri<=n) approved.add(c.code); });
+    renderAll();
+  });
+
+  /* ----------------------------------------------------------------
+     7. LAYOUT INICIAL Y RESIZE
+  ---------------------------------------------------------------- */
+  function layoutIfNeeded(){ /* geometría de tarjetas no cambia con el estado */ }
+
+  let resizeTimer = null;
+  window.addEventListener('resize', ()=>{
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(layoutConnectors, 150);
+  });
+
+  renderAll();
+  requestAnimationFrame(()=>{
+    layoutConnectors();
+    if(document.fonts && document.fonts.ready){ document.fonts.ready.then(layoutConnectors); }
+    setTimeout(layoutConnectors, 400);
+  });
+  window.addEventListener('load', layoutConnectors);
+
+})();
+</script>
+</body>
+</html>
