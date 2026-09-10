@@ -90,12 +90,11 @@
   }
   select.select:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
 
-  /* ---- Dashboard: los 4 paneles a la misma altura ---- */
   .dashboard{
     position:relative; z-index:1;
     display:grid;
     grid-template-columns: auto auto auto 1fr;
-    align-items: stretch;          /* ← fuerza misma altura */
+    align-items: stretch;
     gap:16px;
     padding:14px clamp(16px,4vw,40px) 8px;
   }
@@ -184,12 +183,25 @@
     color:var(--muted-2); font-style:italic; background:none;
     border-left-color:transparent; padding-left:0;
   }
+    .avail-list li{
+    cursor:pointer;
+    transition:background .15s ease, border-left-color .15s ease, transform .1s ease;
+  }
+  .avail-list li:hover{
+    background:rgba(87,199,230,.16);
+    border-left-color:var(--cyan);
+    transform:translateX(2px);
+  }
+  .avail-list li:active{transform:translateX(0);}
+  .avail-list li:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
+  .avail-list .empty{cursor:default; transform:none !important;}
+  .avail-list .empty:hover{background:none; border-left-color:transparent;}
 
   .hint{position:relative; z-index:1; margin:2px clamp(16px,4vw,40px) 14px; font-size:12.5px; color:var(--muted-2);}
   .hint strong{color:var(--muted);}
 
   .storage-flag{
-    position:relative; z-index:1; margin:0 clamp(16px,4vw,40px) 10px; font-size:11.5px;
+    position:relative; z-index:1; margin:0 clamp(16px,4vw,40px) 10px; font-size:12.5px;
     color:var(--coral); display:none; align-items:center; gap:6px;
   }
   .storage-flag.show{display:flex;}
@@ -202,7 +214,7 @@
   }
   .board-inner{position:relative; display:inline-block;}
   .columns{display:inline-flex; gap:26px; align-items:stretch;}
-  .column{flex:0 0 auto; display:flex; flex-direction:column; scroll-snap-align:start;}
+  .column{width:205px; flex:0 0 205px; display:flex; flex-direction:column; scroll-snap-align:start;}
 
   .column-header{padding-bottom:10px; border-bottom:1px solid var(--line-soft-2); margin-bottom:14px;}
   .column-header-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
@@ -347,7 +359,13 @@
   footer{position:relative; z-index:1; padding:8px clamp(16px,4vw,40px) 34px; font-size:11.5px; color:var(--muted-2); 
   }
   footer p{margin:4px 0;}
-  #storageNote{color:var(--muted);}
+  #storageNote{
+	  color:var(--muted);
+	  margin:0 clamp(16px,4vw,40px) 10px;
+	  position:relative; z-index:1;
+	  font-size:12.5px;
+	  line-height:1.5;
+	}
 
   @media (prefers-reduced-motion: reduce){
     .card, .card-toggle, .gauge-fill, .tri-progress-fill{transition:none !important;}
@@ -452,7 +470,8 @@
 
 <p class="hint"><strong>Cómo usarla:</strong> haz clic en una asignatura disponible (resaltada en celeste, con brillo pulsante) para marcarla como aprobada — verás en vivo qué otras asignaturas se habilitan. Una vez aprobada, ingresa tu nota para calcular el PPA. Pasa el cursor sobre cualquier asignatura para trazar su cadena completa de requisitos.</p>
 <p class="storage-flag" id="storageFlag">⚠ El guardado automático no está disponible en esta vista previa. Descárgala o publícala en GitHub Pages para que tu avance se guarde en el navegador.</p>
-
+<p id="storageNote"></p>
+  
 <div class="board-scroll" id="boardScroll">
   <div class="board-inner" id="boardInner">
     <svg class="connectors" id="connectors" xmlns="http://www.w3.org/2000/svg">
@@ -473,10 +492,9 @@
 </div>
 
 <footer>
+  <p>Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad. Cualquier error en la información o sugerencia, escríbeme a <a href="mailto:r.navarromoreno@uandresbello.edu">r.navarromoreno@uandresbello.edu</a>.</p>
   <p>Datos extraídos de la malla oficial UNAB (programa UNAB39212, periodo catálogo 2023, periodo 202605). Los requisitos con vías alternativas de otros programas o convalidaciones se simplificaron a la ruta interna de esta malla.</p>
   <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación de la asignatura. El PPA se calcula ponderando por créditos solo las asignaturas aprobadas con nota ingresada.</p>
-  <p>Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad. Cualquier error en la información o sugerencia a r.navarromoreno@uandresbello.edu</p>
-  <p id="storageNote"></p>
 </footer>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
@@ -858,6 +876,14 @@
     }
     unlocked.forEach(c=>{
       const li = document.createElement('li');
+      li.tabIndex = 0;
+      li.setAttribute('role','button');
+      li.setAttribute('aria-label','Aprobar '+titleCase(c.name)+' (T'+c.tri+')');
+      li.title = 'Clic para marcar como aprobada';
+      li.addEventListener('click', ()=>approveFromPanel(c.code));
+      li.addEventListener('keydown', (e)=>{
+        if(e.key==='Enter' || e.key===' '){ e.preventDefault(); approveFromPanel(c.code); }
+      });
       const prefix = document.createElement('span');
       prefix.className = 'tri-prefix';
       prefix.textContent = 'T' + c.tri;
@@ -867,6 +893,11 @@
       li.appendChild(nameSpan);
       list.appendChild(li);
     });
+  }
+
+  function approveFromPanel(code){
+    if(stateOf(code) !== 'unlocked') return;
+    approveOne(code);
   }
 
   function renderAll(){
