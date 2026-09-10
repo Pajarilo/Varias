@@ -90,15 +90,22 @@
   }
   select.select:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
 
+  /* ---- Dashboard: los 4 paneles a la misma altura ---- */
   .dashboard{
     position:relative; z-index:1;
-    display:flex; align-items:stretch; gap:16px; flex-wrap:wrap;
+    display:grid;
+    grid-template-columns: auto auto auto 1fr;
+    align-items: stretch;          /* ← fuerza misma altura */
+    gap:16px;
     padding:14px clamp(16px,4vw,40px) 8px;
   }
   .panel{
     background:linear-gradient(180deg, var(--ink-800), var(--ink-850));
     border:1px solid var(--line-soft-2); border-radius:var(--radius);
     padding:14px 18px;
+    display:flex;
+    height:100%;                   /* ← ocupa toda la altura de la fila */
+    min-height:0;                  /* permite que los hijos scrolleen */
   }
 
   .gauge-card{display:flex; align-items:center; gap:14px; min-width:190px;}
@@ -112,7 +119,7 @@
   .gauge-meta p{margin:0; font-size:11.5px; letter-spacing:.4px; color:var(--muted); text-transform:uppercase;}
   .gauge-meta strong{display:block; font-size:13.5px; font-weight:600; margin-top:2px; color:var(--paper);}
 
-  .stat-row{display:flex; gap:16px; flex-wrap:wrap;}
+  .stat-row{display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
   .stat-card{min-width:120px; display:flex; flex-direction:column; justify-content:center; gap:3px;}
   .stat-card .stat-label{font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--muted);}
   .stat-card .stat-value{font-family:var(--font-mono); font-size:20px; font-weight:600;}
@@ -123,7 +130,17 @@
   .quick-card{display:flex; flex-direction:column; gap:8px; justify-content:center; min-width:220px;}
   .quick-card label{font-size:11px; letter-spacing:.4px; text-transform:uppercase; color:var(--muted);}
 
-  .legend-card{display:flex; align-items:center; gap:16px; flex-wrap:wrap;}
+  /* ---- Panel de disponibles + leyenda vertical ---- */
+  .avail-panel{
+    display:flex; gap:24px; align-items:stretch; flex-wrap:nowrap;
+    flex:1 1 420px;
+    min-height:0;
+  }
+  .legend-vertical{
+    display:flex; flex-direction:column; gap:9px; justify-content:center;
+    padding-right:20px; border-right:1px solid var(--line-soft-2);
+    min-width:140px; flex:0 0 auto;
+  }
   .legend-item{display:flex; align-items:center; gap:7px; font-size:12.5px; color:var(--muted);}
   .legend-dot{width:11px; height:11px; border-radius:2px; flex:0 0 auto;}
   .legend-dot.approved{background:var(--amber); box-shadow:0 0 6px var(--amber-line);}
@@ -131,6 +148,42 @@
   .legend-dot.locked{background:var(--locked);}
   .legend-line{width:16px; height:2px; background:var(--violet); position:relative;}
   .legend-line::after{content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,var(--violet) 0 3px, transparent 3px 6px);}
+
+  /* ---- Bloque de asignaturas disponibles: título fijo + lista scrolleable en 2 columnas ---- */
+  .avail-block{
+    flex:1 1 260px; min-width:240px;
+    display:flex; flex-direction:column;
+    min-height:0;
+  }
+  .avail-block-title{
+    font-size:11px; letter-spacing:.5px; text-transform:uppercase; color:var(--muted);
+    margin:0 0 8px; font-weight:600;
+    flex:0 0 auto;                 /* ← el título queda fijo */
+  }
+  .avail-list{
+    list-style:none; margin:0; padding:0 6px 0 0;
+    display:grid;
+    grid-template-columns: 1fr 1fr;   /* ← 2 columnas */
+    gap:5px 12px;
+    overflow-y:auto;                  /* ← solo scrollea la lista */
+    flex:1 1 auto;
+    min-height:0;
+    align-content:start;
+  }
+  .avail-list li{
+    display:flex; align-items:flex-start; gap:8px; font-size:12.5px;
+    line-height:1.35; color:var(--paper); padding:4px 7px; border-radius:3px;
+    background:rgba(87,199,230,.06); border-left:2px solid var(--cyan-line);
+  }
+  .avail-list li .tri-prefix{
+    font-family:var(--font-mono); font-size:10.5px; font-weight:600;
+    color:var(--cyan); flex:0 0 auto; padding-top:1px;
+  }
+  .avail-list .empty{
+    grid-column:1 / -1;
+    color:var(--muted-2); font-style:italic; background:none;
+    border-left-color:transparent; padding-left:0;
+  }
 
   .hint{position:relative; z-index:1; margin:2px clamp(16px,4vw,40px) 14px; font-size:12.5px; color:var(--muted-2);}
   .hint strong{color:var(--muted);}
@@ -149,7 +202,7 @@
   }
   .board-inner{position:relative; display:inline-block;}
   .columns{display:inline-flex; gap:26px; align-items:stretch;}
-  .column{width:236px; flex:0 0 236px; display:flex; flex-direction:column; scroll-snap-align:start;}
+  .column{width:200px; flex:0 0 200px; display:flex; flex-direction:column; scroll-snap-align:start;}
 
   .column-header{padding-bottom:10px; border-bottom:1px solid var(--line-soft-2); margin-bottom:14px;}
   .column-header-top{display:flex; align-items:baseline; justify-content:space-between; gap:8px;}
@@ -170,7 +223,6 @@
   .wire.wire-dim{opacity:.06 !important; filter:none !important;}
   .wire.wire-trace{opacity:1 !important; stroke-width:2.2;}
 
-  /* ---------- Card / chip ---------- */
   .card{
     position:relative; z-index:2;
     background:var(--ink-700); border:1px solid var(--line-soft-2); border-radius:var(--radius);
@@ -195,7 +247,7 @@
     flex:0 0 auto; width:20px; height:20px; border-radius:50%; display:flex; align-items:center; justify-content:center;
     color:var(--ink-900); background:var(--locked-line); transition:background .18s ease, color .18s ease;
   }
-  .card-name{font-size:15px; font-weight:700; line-height:1.26; color:var(--paper); margin:5px 0 9px;}
+  .card-name{font-size:14px; font-weight:700; line-height:1.26; color:var(--paper); margin:5px 0 9px;}
   .card-foot{display:flex; align-items:center; gap:6px; flex-wrap:wrap;}
   .credits-tag{
     font-family:var(--font-mono); font-size:10.5px; color:var(--muted); border:1px solid var(--line-soft-2);
@@ -272,17 +324,28 @@
   }
   .tooltip strong{display:block; color:var(--coral); font-size:11px; text-transform:uppercase; letter-spacing:.3px; margin-bottom:4px;}
 
-  .toast-stack{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60; display:flex; flex-direction:column; gap:8px; align-items:center;}
+  .toast-stack{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60; display:flex; flex-direction:column; gap:8px; align-items:center; max-width:520px; width:calc(100% - 32px);}
   .toast{
     background:var(--ink-800); border:1px solid var(--amber-line); color:var(--paper); font-size:13px;
-    padding:9px 16px; border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,.45);
-    animation:toast-in .25s ease-out;
+    padding:11px 18px; border-radius:var(--radius); box-shadow:0 10px 30px rgba(0,0,0,.45);
+    animation:toast-in .25s ease-out; text-align:left; width:100%;
+  }
+  .toast .toast-title{
+    display:block; font-size:11px; letter-spacing:.4px; text-transform:uppercase;
+    color:var(--amber); font-weight:600; margin-bottom:6px;
+  }
+  .toast ul{margin:0; padding-left:18px; display:flex; flex-direction:column; gap:3px;}
+  .toast li{font-size:12.5px; line-height:1.35;}
+  .toast li .tri-prefix{
+    font-family:var(--font-mono); font-size:11px; font-weight:600; color:var(--cyan);
+    margin-right:6px;
   }
   @keyframes toast-in{from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);}}
   .toast.leaving{animation:toast-out .25s ease-in forwards;}
   @keyframes toast-out{to{opacity:0; transform:translateY(6px);}}
 
-  footer{position:relative; z-index:1; padding:8px clamp(16px,4vw,40px) 34px; font-size:11.5px; color:var(--muted-2); max-width:900px;}
+  footer{position:relative; z-index:1; padding:8px clamp(16px,4vw,40px) 34px; font-size:11.5px; color:var(--muted-2); 
+  }
   footer p{margin:4px 0;}
   #storageNote{color:var(--muted);}
 
@@ -291,11 +354,18 @@
     .card.just-unlocked, .card.shake, .toast, .card.state-unlocked{animation:none !important;}
   }
 
-  @media (max-width:640px){
-    .dashboard{gap:10px;}
+  /* ---- Responsive ---- */
+  @media (max-width:1100px){
+    .dashboard{grid-template-columns: 1fr 1fr;}
+  }
+  @media (max-width:760px){
+    .dashboard{grid-template-columns: 1fr; gap:10px;}
     .panel{padding:12px 14px;}
-    .gauge-card{min-width:0; flex:1 1 100%;}
+    .gauge-card{min-width:0;}
     .stat-card{min-width:96px;}
+    .legend-vertical{border-right:none; border-bottom:1px solid var(--line-soft-2); padding-right:0; padding-bottom:12px; width:100%; flex-direction:row; flex-wrap:wrap; gap:12px;}
+    .avail-panel{flex-direction:column; gap:12px;}
+    .avail-list{grid-template-columns:1fr;}
   }
 </style>
 </head>
@@ -337,7 +407,7 @@
 
   <div class="panel stat-row">
     <div class="stat-card">
-      <span class="stat-label">Ramos aprobados</span>
+      <span class="stat-label">Asignaturas aprobadas</span>
       <span class="stat-value" id="statCourses">0 / 0</span>
     </div>
     <div class="stat-card">
@@ -366,15 +436,21 @@
     </select>
   </div>
 
-  <div class="panel legend-card">
-    <span class="legend-item"><span class="legend-dot approved"></span>Aprobado</span>
-    <span class="legend-item"><span class="legend-dot unlocked"></span>Disponible</span>
-    <span class="legend-item"><span class="legend-dot locked"></span>Bloqueado</span>
-    <span class="legend-item"><span class="legend-line"></span>Correquisito</span>
+  <div class="panel avail-panel">
+    <div class="legend-vertical">
+      <span class="legend-item"><span class="legend-dot approved"></span>Aprobado</span>
+      <span class="legend-item"><span class="legend-dot unlocked"></span>Disponible</span>
+      <span class="legend-item"><span class="legend-dot locked"></span>Bloqueado</span>
+      <span class="legend-item"><span class="legend-line"></span>Correquisito</span>
+    </div>
+    <div class="avail-block" id="availBlock">
+      <p class="avail-block-title">Asignaturas disponibles ahora</p>
+      <ul class="avail-list" id="availList"></ul>
+    </div>
   </div>
 </section>
 
-<p class="hint"><strong>Cómo usarla:</strong> haz clic en un ramo disponible (resaltado en celeste, con brillo pulsante) para marcarlo como aprobado — verás en vivo qué otros ramos se habilitan. Una vez aprobado, ingresa tu nota para calcular el PPA. Pasa el cursor sobre cualquier ramo para trazar su cadena completa de requisitos.</p>
+<p class="hint"><strong>Cómo usarla:</strong> haz clic en una asignatura disponible (resaltada en celeste, con brillo pulsante) para marcarla como aprobada — verás en vivo qué otras asignaturas se habilitan. Una vez aprobada, ingresa tu nota para calcular el PPA. Pasa el cursor sobre cualquier asignatura para trazar su cadena completa de requisitos.</p>
 <p class="storage-flag" id="storageFlag">⚠ El guardado automático no está disponible en esta vista previa. Descárgala o publícala en GitHub Pages para que tu avance se guarde en el navegador.</p>
 
 <div class="board-scroll" id="boardScroll">
@@ -398,7 +474,7 @@
 
 <footer>
   <p>Datos extraídos de la malla oficial UNAB (programa UNAB39212, periodo catálogo 2023, periodo 202605). Los requisitos con vías alternativas de otros programas o convalidaciones se simplificaron a la ruta interna de esta malla.</p>
-  <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación del ramo. El PPA se calcula ponderando por créditos solo los ramos aprobados con nota ingresada. Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad.</p>
+  <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación de la asignatura. El PPA se calcula ponderando por créditos solo las asignaturas aprobadas con nota ingresada. Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad.</p>
   <p id="storageNote"></p>
 </footer>
 
@@ -409,10 +485,6 @@
 (function(){
   "use strict";
 
-  /* ----------------------------------------------------------------
-     1. DATOS — malla curricular. Dentro de cada trimestre, los ramos
-        con correquisito en común se ubican de forma adyacente.
-  ---------------------------------------------------------------- */
   const COURSES = [
     {code:'AAUT101', name:'ELECTRÓNICA ANÁLOGA Y DIGITAL', tri:1, credits:15, prereq:[], coreq:[]},
     {code:'ATDF101', name:'TÓPICOS DE INGENIERÍA', tri:1, credits:8, prereq:[], coreq:[]},
@@ -496,9 +568,6 @@
     bolt:'<svg viewBox="0 0 16 16" width="12" height="12"><path d="M8.8 1.4 3 9.2h3.6L6.3 14.6 13 6.3H9.2z" fill="currentColor"/></svg>'
   };
 
-  /* ----------------------------------------------------------------
-     2. ESTADO + PERSISTENCIA (localStorage)
-  ---------------------------------------------------------------- */
   const approved = new Set();
   const grades = {};
   const STORAGE_KEY = 'unab-aaur-adv-malla-v1';
@@ -523,13 +592,13 @@
           if(byCode[k]){ const v = parseFloat(data.grades[k]); if(!isNaN(v)) grades[k] = v; }
         });
       }
-    }catch(e){ /* datos corruptos o inaccesibles: se ignoran */ }
+    }catch(e){}
   }
   function saveState(){
     if(!storageAvailable) return;
     try{
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify({approved:[...approved], grades:grades}));
-    }catch(e){ /* almacenamiento lleno o bloqueado: se ignora */ }
+    }catch(e){}
   }
   loadState();
 
@@ -539,9 +608,6 @@
     return c.prereq.every(p=>approved.has(p)) ? 'unlocked' : 'locked';
   }
 
-  /* ----------------------------------------------------------------
-     3. CONSTRUCCIÓN DEL DOM
-  ---------------------------------------------------------------- */
   const columnsEl = document.getElementById('columns');
   const boardInner = document.getElementById('boardInner');
   const svg = document.getElementById('connectors');
@@ -628,9 +694,6 @@
     columnsEl.appendChild(col);
   });
 
-  /* ----------------------------------------------------------------
-     4. CONECTORES (SVG)
-  ---------------------------------------------------------------- */
   let wires = [];
 
   function layoutConnectors(){
@@ -715,9 +778,6 @@
     });
   }
 
-  /* ----------------------------------------------------------------
-     5. RENDER DE ESTADOS
-  ---------------------------------------------------------------- */
   function calcPPA(){
     let sw=0, sc=0, n=0;
     COURSES.forEach(c=>{
@@ -738,9 +798,9 @@
     card.classList.add('state-'+st);
     const icon = toggle.querySelector('[data-role="icon"]');
     let label;
-    if(st==='approved'){ icon.innerHTML = ICONS.check; label='aprobado'; toggle.setAttribute('aria-pressed','true'); }
+    if(st==='approved'){ icon.innerHTML = ICONS.check; label='aprobada'; toggle.setAttribute('aria-pressed','true'); }
     else if(st==='unlocked'){ icon.innerHTML = ICONS.bolt; label='disponible para aprobar'; toggle.setAttribute('aria-pressed','false'); }
-    else { icon.innerHTML = ICONS.lock; label='bloqueado'; toggle.setAttribute('aria-pressed','false'); }
+    else { icon.innerHTML = ICONS.lock; label='bloqueada'; toggle.setAttribute('aria-pressed','false'); }
     const missing = course.prereq.filter(p=>!approved.has(p));
     let aria = course.code+', '+titleCase(course.name)+', '+course.credits+' créditos, '+label+'.';
     if(st==='locked') aria += ' Requiere: '+missing.map(p=>p+' '+titleCase(byCode[p].name)).join(', ')+'.';
@@ -781,16 +841,41 @@
     sub.textContent = missingGrades > 0 ? ('+'+missingGrades+' sin nota') : (ppaData.n > 0 ? ppaData.n+' con nota' : '');
   }
 
+  function renderAvailablePanel(){
+    const list = document.getElementById('availList');
+    if(!list) return;
+    list.innerHTML = '';
+    const unlocked = COURSES
+      .filter(c => stateOf(c.code) === 'unlocked')
+      .sort((a,b)=> a.tri - b.tri || a.name.localeCompare(b.name));
+    if(!unlocked.length){
+      const li = document.createElement('li');
+      li.className = 'empty';
+      li.textContent = approved.size ? 'No hay asignaturas disponibles en este momento.' : 'Sin avance: aprueba una asignatura del T1 para comenzar.';
+      list.appendChild(li);
+      return;
+    }
+    unlocked.forEach(c=>{
+      const li = document.createElement('li');
+      const prefix = document.createElement('span');
+      prefix.className = 'tri-prefix';
+      prefix.textContent = 'T' + c.tri;
+      const nameSpan = document.createElement('span');
+      nameSpan.textContent = titleCase(c.name);
+      li.appendChild(prefix);
+      li.appendChild(nameSpan);
+      list.appendChild(li);
+    });
+  }
+
   function renderAll(){
     renderAllCards();
     renderColumns();
     renderDashboard();
+    renderAvailablePanel();
     layoutConnectors();
   }
 
-  /* ----------------------------------------------------------------
-     6. INTERACCIÓN
-  ---------------------------------------------------------------- */
   function handleCardClick(code){
     const st = stateOf(code);
     if(st==='locked'){ denyCard(code); return; }
@@ -798,12 +883,12 @@
   }
 
   function approveOne(code){
-    const beforeLocked = COURSES.filter(c=>stateOf(c.code)==='locked').map(c=>c.code);
+    const beforeUnlocked = new Set(COURSES.filter(c=>stateOf(c.code)==='unlocked').map(c=>c.code));
     approved.add(code);
     renderAll();
     saveState();
-    const newlyUnlocked = beforeLocked.filter(c=>stateOf(c)==='unlocked');
-    celebrate(newlyUnlocked);
+    const afterUnlocked = COURSES.filter(c=>stateOf(c.code)==='unlocked' && !beforeUnlocked.has(c.code));
+    celebrate(afterUnlocked);
   }
 
   function unapprove(code){
@@ -822,7 +907,7 @@
     renderAll();
     saveState();
     if(cascaded.length){
-      showToast('También se desmarcaron '+cascaded.length+' ramo'+(cascaded.length>1?'s':'')+' que dependían de '+code+': '+cascaded.join(', ')+'.');
+      showToast('También se desmarcaron '+cascaded.length+' asignatura'+(cascaded.length>1?'s':'')+' que dependían de '+code+': '+cascaded.join(', ')+'.');
     }
   }
 
@@ -833,20 +918,25 @@
     const missing = course.prereq.filter(p=>!approved.has(p));
     const rect = el.getBoundingClientRect();
     showTooltip(
-      '<strong>Bloqueado</strong>Necesitas aprobar antes: '+missing.map(p=>p+' — '+titleCase(byCode[p].name)).join('; ')+'.',
+      '<strong>Bloqueada</strong>Necesitas aprobar antes: '+missing.map(p=>p+' — '+titleCase(byCode[p].name)).join('; ')+'.',
       rect
     );
   }
 
-  function celebrate(newlyUnlockedCodes){
-    newlyUnlockedCodes.forEach(c=>{
-      const el = cardEls[c];
+  function celebrate(newlyUnlocked){
+    newlyUnlocked.forEach(c=>{
+      const el = cardEls[c.code];
       el.classList.remove('just-unlocked'); void el.offsetWidth; el.classList.add('just-unlocked');
     });
-    if(newlyUnlockedCodes.length){
-      const names = newlyUnlockedCodes.slice(0,4).join(', ')+(newlyUnlockedCodes.length>4?'…':'');
-      showToast('Se habilitaron '+newlyUnlockedCodes.length+' ramo'+(newlyUnlockedCodes.length>1?'s':'')+': '+names, true);
-    }
+    if(!newlyUnlocked.length) return;
+    const ordered = newlyUnlocked.slice().sort((a,b)=> a.tri - b.tri || a.name.localeCompare(b.name));
+    const items = ordered.map(c=>
+      '<li><span class="tri-prefix">T'+c.tri+'</span>'+titleCase(c.name)+'</li>'
+    ).join('');
+    showToastList(
+      'Se habilitaron '+ordered.length+' asignatura'+(ordered.length>1?'s':'')+':',
+      '<ul>'+items+'</ul>'
+    );
   }
 
   function onGradeInput(code, inputEl, commit){
@@ -890,17 +980,44 @@
   document.addEventListener('scroll', ()=>{ tooltipEl.hidden = true; }, true);
 
   const toastStack = document.getElementById('toastStack');
+  let toastTimer = null;
+  function clearToasts(){
+    Array.from(toastStack.children).forEach(t=>{
+      t.classList.add('leaving');
+      setTimeout(()=>t.remove(), 260);
+    });
+    clearTimeout(toastTimer);
+    toastTimer = null;
+  }
   function showToast(msg, positive){
+    clearToasts();
     const t = document.createElement('div');
     t.className = 'toast';
     t.style.borderColor = positive ? 'var(--amber-line)' : 'rgba(232,115,90,.6)';
     t.textContent = msg;
     toastStack.appendChild(t);
-    setTimeout(()=>{
+    toastTimer = setTimeout(()=>{
       t.classList.add('leaving');
       setTimeout(()=>t.remove(), 260);
-    }, 3400);
+      toastTimer = null;
+    }, 5000);
   }
+  function showToastList(title, htmlContent){
+    clearToasts();
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.innerHTML = '<span class="toast-title">'+title+'</span>'+htmlContent;
+    toastStack.appendChild(t);
+    toastTimer = setTimeout(()=>{
+      t.classList.add('leaving');
+      setTimeout(()=>t.remove(), 260);
+      toastTimer = null;
+    }, 5000);
+  }
+  document.addEventListener('click', (e)=>{
+    if(toastStack.contains(e.target)) return;
+    if(toastStack.children.length) clearToasts();
+  });
 
   function traceOn(code){
     const anc = ancestorsOf(code);
@@ -940,9 +1057,6 @@
     saveState();
   });
 
-  /* ----------------------------------------------------------------
-     7. LAYOUT INICIAL Y RESIZE
-  ---------------------------------------------------------------- */
   let resizeTimer = null;
   window.addEventListener('resize', ()=>{
     clearTimeout(resizeTimer);
@@ -951,7 +1065,7 @@
 
   if(!storageAvailable){ document.getElementById('storageFlag').classList.add('show'); }
   document.getElementById('storageNote').textContent = storageAvailable
-    ? 'Tu avance (ramos aprobados y notas) se guarda automáticamente en este navegador, incluso si cierras la página.'
+    ? 'Tu avance (asignaturas aprobadas y notas) se guarda automáticamente en este navegador, incluso si cierras la página.'
     : 'El guardado automático no está disponible en esta vista previa (por ejemplo, dentro del chat de Claude). Descarga el archivo o publícalo en GitHub Pages para que tu avance se guarde en el navegador.';
 
   renderAll();
