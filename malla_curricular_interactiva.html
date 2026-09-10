@@ -90,6 +90,7 @@
   }
   select.select:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
 
+  /* ---- Dashboard ---- */
   .dashboard{
     position:relative; z-index:1;
     display:grid;
@@ -103,8 +104,8 @@
     border:1px solid var(--line-soft-2); border-radius:var(--radius);
     padding:14px 18px;
     display:flex;
-    height:100%;                   /* ← ocupa toda la altura de la fila */
-    min-height:0;                  /* permite que los hijos scrolleen */
+    height:100%;
+    min-height:0;
   }
 
   .gauge-card{display:flex; align-items:center; gap:14px; min-width:190px;}
@@ -148,7 +149,6 @@
   .legend-line{width:16px; height:2px; background:var(--violet); position:relative;}
   .legend-line::after{content:''; position:absolute; inset:0; background:repeating-linear-gradient(90deg,var(--violet) 0 3px, transparent 3px 6px);}
 
-  /* ---- Bloque de asignaturas disponibles: título fijo + lista scrolleable en 2 columnas ---- */
   .avail-block{
     flex:1 1 260px; min-width:240px;
     display:flex; flex-direction:column;
@@ -157,14 +157,14 @@
   .avail-block-title{
     font-size:11px; letter-spacing:.5px; text-transform:uppercase; color:var(--muted);
     margin:0 0 8px; font-weight:600;
-    flex:0 0 auto;                 /* ← el título queda fijo */
+    flex:0 0 auto;
   }
   .avail-list{
     list-style:none; margin:0; padding:0 6px 0 0;
     display:grid;
-    grid-template-columns: 1fr 1fr;   /* ← 2 columnas */
+    grid-template-columns: 1fr 1fr;
     gap:5px 12px;
-    overflow-y:auto;                  /* ← solo scrollea la lista */
+    overflow-y:auto;
     flex:1 1 auto;
     min-height:0;
     align-content:start;
@@ -173,17 +173,6 @@
     display:flex; align-items:flex-start; gap:8px; font-size:12.5px;
     line-height:1.35; color:var(--paper); padding:4px 7px; border-radius:3px;
     background:rgba(87,199,230,.06); border-left:2px solid var(--cyan-line);
-  }
-  .avail-list li .tri-prefix{
-    font-family:var(--font-mono); font-size:10.5px; font-weight:600;
-    color:var(--cyan); flex:0 0 auto; padding-top:1px;
-  }
-  .avail-list .empty{
-    grid-column:1 / -1;
-    color:var(--muted-2); font-style:italic; background:none;
-    border-left-color:transparent; padding-left:0;
-  }
-    .avail-list li{
     cursor:pointer;
     transition:background .15s ease, border-left-color .15s ease, transform .1s ease;
   }
@@ -194,17 +183,41 @@
   }
   .avail-list li:active{transform:translateX(0);}
   .avail-list li:focus-visible{outline:2px solid var(--cyan); outline-offset:2px;}
-  .avail-list .empty{cursor:default; transform:none !important;}
+  .avail-list li .tri-prefix{
+    font-family:var(--font-mono); font-size:10.5px; font-weight:600;
+    color:var(--cyan); flex:0 0 auto; padding-top:1px;
+  }
+  .avail-list .empty{
+    grid-column:1 / -1;
+    color:var(--muted-2); font-style:italic; background:none;
+    border-left-color:transparent; padding-left:0;
+    cursor:default; transform:none !important;
+  }
   .avail-list .empty:hover{background:none; border-left-color:transparent;}
 
   .hint{position:relative; z-index:1; margin:2px clamp(16px,4vw,40px) 14px; font-size:12.5px; color:var(--muted-2);}
   .hint strong{color:var(--muted);}
 
   .storage-flag{
-    position:relative; z-index:1; margin:0 clamp(16px,4vw,40px) 10px; font-size:12.5px;
-    color:var(--coral); display:none; align-items:center; gap:6px;
+    position:relative; z-index:1;
+    margin:0 clamp(16px,4vw,40px) 10px;
+    padding:0;
+    font-size:11.5px;
+    line-height:1.5;
+    color:var(--coral);
+    display:none;
+    align-items:flex-start;
+    gap:6px;
   }
   .storage-flag.show{display:flex;}
+
+  #storageNote{
+    position:relative; z-index:1;
+    color:var(--muted);
+    margin:0 clamp(16px,4vw,40px) 10px;
+    font-size:12.5px;
+    line-height:1.5;
+  }
 
   .board-scroll{
     position:relative; z-index:1;
@@ -329,12 +342,48 @@
   }
   .card.shake{animation:shake .5s ease;}
 
-  .tooltip{
-    position:fixed; z-index:50; max-width:240px; background:var(--ink-850); border:1px solid var(--coral);
-    border-radius:var(--radius); padding:9px 11px; font-size:12px; line-height:1.45; color:var(--paper);
-    box-shadow:0 8px 24px rgba(0,0,0,.4); pointer-events:none;
+  /* ---- Panel flotante de requisitos (mismo estilo que los toast) ---- */
+  .req-panel{
+    position:fixed; z-index:55;
+    max-width:420px; width:max-content;
+    background:var(--ink-800);
+    border:1px solid var(--coral);
+    border-radius:var(--radius);
+    padding:11px 16px;
+    font-size:13px;
+    color:var(--paper);
+    box-shadow:0 10px 30px rgba(0,0,0,.45);
+    pointer-events:none;
+    animation:toast-in .2s ease-out;
   }
-  .tooltip strong{display:block; color:var(--coral); font-size:11px; text-transform:uppercase; letter-spacing:.3px; margin-bottom:4px;}
+  .req-panel .req-title{
+    display:block;
+    font-size:11px; letter-spacing:.4px; text-transform:uppercase;
+    color:var(--coral); font-weight:600; margin-bottom:6px;
+  }
+  
+    /* Variante verde para requisitos cumplidos */
+  .req-panel.req-ok{
+    border-color:var(--accent2, #4d8b7a);
+  }
+  .req-panel.req-ok .req-title{
+    color:var(--accent2, #4d8b7a);
+  }
+  
+  .req-panel ul{
+    margin:0; padding-left:18px;
+    display:flex; flex-direction:column; gap:3px;
+    max-height:260px; overflow-y:auto;
+  }
+  .req-panel li{font-size:12.5px; line-height:1.35;}
+  .req-panel li .tri-prefix{
+    font-family:var(--font-mono); font-size:11px; font-weight:600;
+    color:var(--cyan); margin-right:6px;
+  }
+  .req-panel li.done{color:var(--muted);}
+  .req-panel li.done::after{
+    content:' ✓'; color:#4ade80; font-weight:700;
+  }
 
   .toast-stack{position:fixed; left:50%; bottom:22px; transform:translateX(-50%); z-index:60; display:flex; flex-direction:column; gap:8px; align-items:center; max-width:520px; width:calc(100% - 32px);}
   .toast{
@@ -356,23 +405,18 @@
   .toast.leaving{animation:toast-out .25s ease-in forwards;}
   @keyframes toast-out{to{opacity:0; transform:translateY(6px);}}
 
-  footer{position:relative; z-index:1; padding:8px clamp(16px,4vw,40px) 34px; font-size:11.5px; color:var(--muted-2); 
+  footer{
+    position:relative; z-index:1;
+    padding:8px clamp(16px,4vw,40px) 34px;
+    font-size:11.5px; color:var(--muted-2);
   }
   footer p{margin:4px 0;}
-  #storageNote{
-	  color:var(--muted);
-	  margin:0 clamp(16px,4vw,40px) 10px;
-	  position:relative; z-index:1;
-	  font-size:12.5px;
-	  line-height:1.5;
-	}
 
   @media (prefers-reduced-motion: reduce){
     .card, .card-toggle, .gauge-fill, .tri-progress-fill{transition:none !important;}
     .card.just-unlocked, .card.shake, .toast, .card.state-unlocked{animation:none !important;}
   }
 
-  /* ---- Responsive ---- */
   @media (max-width:1100px){
     .dashboard{grid-template-columns: 1fr 1fr;}
   }
@@ -468,10 +512,11 @@
   </div>
 </section>
 
-<p class="hint"><strong>Cómo usarla:</strong> haz clic en una asignatura disponible (resaltada en celeste, con brillo pulsante) para marcarla como aprobada — verás en vivo qué otras asignaturas se habilitan. Una vez aprobada, ingresa tu nota para calcular el PPA. Pasa el cursor sobre cualquier asignatura para trazar su cadena completa de requisitos.</p>
+<p class="hint"><strong>Cómo usarla:</strong> haz clic en una asignatura disponible (resaltada en celeste, con brillo pulsante) para marcarla como aprobada — verás en vivo qué otras asignaturas se habilitan. También puedes hacer clic directamente en la lista "Asignaturas disponibles ahora". Una vez aprobada, ingresa tu nota para calcular el PPA. Pasa el cursor sobre cualquier asignatura para ver su cadena completa de requisitos.</p>
+<p class="hint">Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad. Cualquier error en la información o sugerencia, escríbeme a <a href="mailto:r.navarromoreno@uandresbello.edu">r.navarromoreno@uandresbello.edu</a>.</p>
 <p class="storage-flag" id="storageFlag">⚠ El guardado automático no está disponible en esta vista previa. Descárgala o publícala en GitHub Pages para que tu avance se guarde en el navegador.</p>
 <p id="storageNote"></p>
-  
+
 <div class="board-scroll" id="boardScroll">
   <div class="board-inner" id="boardInner">
     <svg class="connectors" id="connectors" xmlns="http://www.w3.org/2000/svg">
@@ -492,13 +537,11 @@
 </div>
 
 <footer>
-  <p>Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad. Cualquier error en la información o sugerencia, escríbeme a <a href="mailto:r.navarromoreno@uandresbello.edu">r.navarromoreno@uandresbello.edu</a>.</p>
   <p>Datos extraídos de la malla oficial UNAB (programa UNAB39212, periodo catálogo 2023, periodo 202605). Los requisitos con vías alternativas de otros programas o convalidaciones se simplificaron a la ruta interna de esta malla.</p>
   <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación de la asignatura. El PPA se calcula ponderando por créditos solo las asignaturas aprobadas con nota ingresada.</p>
 </footer>
 
 <div class="toast-stack" id="toastStack" aria-live="polite"></div>
-<div class="tooltip" id="tooltip" hidden></div>
 
 <script>
 (function(){
@@ -698,10 +741,22 @@
       card.appendChild(toggle);
       card.appendChild(gradeRow);
 
-      card.addEventListener('mouseenter', ()=>traceOn(course.code));
-      card.addEventListener('mouseleave', traceOff);
-      card.addEventListener('focusin', ()=>traceOn(course.code));
-      card.addEventListener('focusout', traceOff);
+      card.addEventListener('mouseenter', ()=>{
+        traceOn(course.code);
+        showRequirementsPanel(course.code, card.getBoundingClientRect());
+      });
+      card.addEventListener('mouseleave', ()=>{
+        traceOff();
+        hideRequirementsPanel();
+      });
+      card.addEventListener('focusin', ()=>{
+        traceOn(course.code);
+        showRequirementsPanel(course.code, card.getBoundingClientRect());
+      });
+      card.addEventListener('focusout', ()=>{
+        traceOff();
+        hideRequirementsPanel();
+      });
 
       cardEls[course.code] = card;
       toggleEls[course.code] = toggle;
@@ -946,29 +1001,67 @@
   function denyCard(code){
     const el = cardEls[code];
     el.classList.remove('shake'); void el.offsetWidth; el.classList.add('shake');
-    const course = byCode[code];
-    const missing = course.prereq.filter(p=>!approved.has(p));
-    const rect = el.getBoundingClientRect();
-    showTooltip(
-      '<strong>Bloqueada</strong>Necesitas aprobar antes: '+missing.map(p=>p+' — '+titleCase(byCode[p].name)).join('; ')+'.',
-      rect
-    );
+    showRequirementsPanel(code, el.getBoundingClientRect());
   }
 
-  function celebrate(newlyUnlocked){
-    newlyUnlocked.forEach(c=>{
-      const el = cardEls[c.code];
-      el.classList.remove('just-unlocked'); void el.offsetWidth; el.classList.add('just-unlocked');
+  /* ----- Panel flotante de requisitos ----- */
+  const reqPanelEl = document.createElement('div');
+  reqPanelEl.className = 'req-panel';
+  reqPanelEl.hidden = true;
+  document.body.appendChild(reqPanelEl);
+
+  function buildRequirementsHTML(code){
+    const course = byCode[code];
+    const st = stateOf(code);
+    const pending = course.prereq.filter(p=>!approved.has(p));
+    const done = course.prereq.filter(p=>approved.has(p));
+
+    let title;
+    if(st==='approved') title = 'Requisitos (ya aprobada)';
+    else if(st==='unlocked') title = 'Requisitos (todos cumplidos)';
+    else title = 'Requisitos pendientes: '+pending.length+' de '+course.prereq.length;
+
+    let items = '';
+    done.forEach(p=>{
+      items += '<li class="done"><span class="tri-prefix">T'+byCode[p].tri+'</span>'
+             + byCode[p].code+' · '+titleCase(byCode[p].name)+'</li>';
     });
-    if(!newlyUnlocked.length) return;
-    const ordered = newlyUnlocked.slice().sort((a,b)=> a.tri - b.tri || a.name.localeCompare(b.name));
-    const items = ordered.map(c=>
-      '<li><span class="tri-prefix">T'+c.tri+'</span>'+titleCase(c.name)+'</li>'
-    ).join('');
-    showToastList(
-      'Se habilitaron '+ordered.length+' asignatura'+(ordered.length>1?'s':'')+':',
-      '<ul>'+items+'</ul>'
-    );
+    pending.forEach(p=>{
+      items += '<li><span class="tri-prefix">T'+byCode[p].tri+'</span>'
+             + byCode[p].code+' · '+titleCase(byCode[p].name)+'</li>';
+    });
+    if(!course.prereq.length){
+      items = '<li><em>Sin requisitos previos.</em></li>';
+    }
+    return '<span class="req-title">'+title+'</span><ul>'+items+'</ul>';
+  }
+
+  function showRequirementsPanel(code, rect){
+    const course = byCode[code];
+    if(!course || !course.prereq.length) return;
+    const st = stateOf(code);
+    const allDone = (st === 'approved' || st === 'unlocked');
+
+    reqPanelEl.classList.toggle('req-ok', allDone);
+    reqPanelEl.innerHTML = buildRequirementsHTML(code);
+    reqPanelEl.hidden = false;
+
+    const pw = reqPanelEl.offsetWidth;
+    const ph = reqPanelEl.offsetHeight;
+
+    let left = rect.left + rect.width/2 - pw/2;
+    left = Math.max(10, Math.min(left, window.innerWidth - pw - 10));
+
+    let top = rect.bottom + 8;
+    if(top + ph > window.innerHeight - 10){
+      top = Math.max(10, rect.top - ph - 8);
+    }
+    reqPanelEl.style.left = left+'px';
+    reqPanelEl.style.top = top+'px';
+  }
+
+  function hideRequirementsPanel(){
+    reqPanelEl.hidden = true;
   }
 
   function onGradeInput(code, inputEl, commit){
@@ -993,23 +1086,7 @@
     saveState();
   }
 
-  const tooltipEl = document.getElementById('tooltip');
-  let tooltipTimer = null;
-  function showTooltip(html, rect){
-    tooltipEl.innerHTML = html;
-    tooltipEl.hidden = false;
-    const tw = 240;
-    let left = rect.left + rect.width/2 - tw/2;
-    left = Math.max(10, Math.min(left, window.innerWidth-tw-10));
-    let top = rect.bottom + 8;
-    if(top + 90 > window.innerHeight) top = rect.top - 98;
-    tooltipEl.style.left = left+'px';
-    tooltipEl.style.top = top+'px';
-    tooltipEl.style.width = tw+'px';
-    clearTimeout(tooltipTimer);
-    tooltipTimer = setTimeout(()=>{ tooltipEl.hidden = true; }, 4200);
-  }
-  document.addEventListener('scroll', ()=>{ tooltipEl.hidden = true; }, true);
+  document.addEventListener('scroll', ()=>{ hideRequirementsPanel(); }, true);
 
   const toastStack = document.getElementById('toastStack');
   let toastTimer = null;
