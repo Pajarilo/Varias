@@ -474,7 +474,8 @@
 
 <footer>
   <p>Datos extraídos de la malla oficial UNAB (programa UNAB39212, periodo catálogo 2023, periodo 202605). Los requisitos con vías alternativas de otros programas o convalidaciones se simplificaron a la ruta interna de esta malla.</p>
-  <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación de la asignatura. El PPA se calcula ponderando por créditos solo las asignaturas aprobadas con nota ingresada. Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad.</p>
+  <p>Los correquisitos (línea violeta punteada) se cursan en el mismo trimestre y no bloquean la habilitación de la asignatura. El PPA se calcula ponderando por créditos solo las asignaturas aprobadas con nota ingresada.</p>
+  <p>Esta es una herramienta de planificación personal, no un registro académico oficial: confirma siempre tu avance real en el sistema de inscripción de la universidad. Cualquier error en la información o sugerencia a r.navarromoreno@uandresbello.edu</p>
   <p id="storageNote"></p>
 </footer>
 
@@ -1066,7 +1067,7 @@
   if(!storageAvailable){ document.getElementById('storageFlag').classList.add('show'); }
   document.getElementById('storageNote').textContent = storageAvailable
     ? 'Tu avance (asignaturas aprobadas y notas) se guarda automáticamente en este navegador, incluso si cierras la página.'
-    : 'El guardado automático no está disponible en esta vista previa (por ejemplo, dentro del chat de Claude). Descarga el archivo o publícalo en GitHub Pages para que tu avance se guarde en el navegador.';
+    : 'El guardado automático no está disponible en esta vista previa. Descarga el archivo o publícalo en GitHub Pages para que tu avance se guarde en el navegador.';
 
   renderAll();
   requestAnimationFrame(()=>{
