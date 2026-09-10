@@ -236,7 +236,10 @@
   .tri-title{font-size:12px; color:var(--muted); margin-top:2px;}
   .tri-progress{height:4px; background:var(--line-soft-2); border-radius:2px; margin-top:9px; overflow:hidden;}
   .tri-progress-fill{height:100%; background:var(--amber); width:0%; transition:width .4s ease;}
-
+  .column.is-complete .tri-progress-fill,
+  .column.is-complete .tri-progress .tri-progress-fill{
+    background:#4ade80 !important;
+  }  
   .column-cards{display:flex; flex-direction:column; gap:14px;}
 
   svg.connectors{position:absolute; top:0; left:0; z-index:1; pointer-events:none; overflow:visible;}
@@ -315,10 +318,10 @@
     50%{box-shadow:0 0 0 1px rgba(87,199,230,.32), 0 0 30px rgba(87,199,230,.32);}
   }
 
-  .card.state-approved{background:linear-gradient(180deg, var(--ink-650), var(--ink-700)); border-color:var(--amber-line);
-    box-shadow:0 0 0 1px rgba(242,165,61,.14), 0 0 16px rgba(242,165,61,.14);}
-  .card.state-approved::before, .card.state-approved::after{background:var(--amber); box-shadow:0 0 6px var(--amber-line);}
-  .card.state-approved .status-icon{background:var(--amber); color:var(--ink-900);}
+  .card.state-approved{background:linear-gradient(180deg, var(--ink-650), var(--ink-700)); border-color:#4ade80;
+    box-shadow:0 0 0 1px rgba(74,222,128,.14), 0 0 16px rgba(74,222,128,.14);}
+  .card.state-approved::before, .card.state-approved::after{background:#4ade80; box-shadow:0 0 6px rgba(74,222,128,.55);}
+  .card.state-approved .status-icon{background:#4ade80; color:var(--ink-900);}
   .card.state-approved .grade-row{display:flex;}
   .card.state-approved:hover{transform:translateY(-1px);}
 
@@ -693,8 +696,12 @@
       '<div class="tri-title">Trimestre '+tri+' &middot; '+courses.reduce((s,c)=>s+c.credits,0)+' CR</div>'+
       '<div class="tri-progress"><div class="tri-progress-fill" data-role="fill"></div></div>';
     col.appendChild(header);
-    colHeaderEls[tri] = { count: header.querySelector('[data-role="count"]'), fill: header.querySelector('[data-role="fill"]') };
-
+    colHeaderEls[tri] = {
+      count: header.querySelector('[data-role="count"]'),
+      fill: header.querySelector('[data-role="fill"]'),
+      col: col
+    };
+	
     const list = document.createElement('div');
     list.className = 'column-cards';
 
@@ -892,6 +899,7 @@
       const ref = colHeaderEls[tri];
       ref.count.textContent = approvedN+'/'+courses.length;
       ref.fill.style.width = (approvedN/courses.length*100).toFixed(0)+'%';
+      ref.col.classList.toggle('is-complete', approvedN === courses.length);
     });
   }
 
@@ -1017,8 +1025,7 @@
     const done = course.prereq.filter(p=>approved.has(p));
 
     let title;
-    if(st==='approved') title = 'Requisitos (ya aprobada)';
-    else if(st==='unlocked') title = 'Requisitos (todos cumplidos)';
+    if(st==='approved' || st==='unlocked') title = 'Requisitos (todos cumplidos)';
     else title = 'Requisitos pendientes: '+pending.length+' de '+course.prereq.length;
 
     let items = '';
